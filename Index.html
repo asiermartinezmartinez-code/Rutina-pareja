@@ -815,6 +815,25 @@ function resetDay() {
   updateProgress();
 }
 
+// ---- SUPABASE ----
+const SUPABASE_URL = 'https://wovnsrwlqgwmfixpvlvi.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indvdm5zcndscWd3bWZpeHB2bHZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MzQyNjksImV4cCI6MjA5MjQxMDI2OX0.4PUK1r8xPSgl5vRHt-NCA7IUg4tNO_1-2zQJ17-yM38';
+
+async function sbFetch(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...options.headers
+    },
+    ...options
+  });
+  if (!res.ok) return null;
+  try { return await res.json(); } catch { return null; }
+}
+
 // ---- AMRAP HISTORY ----
 function getWeekLabel() {
   const now = new Date();
@@ -823,45 +842,65 @@ function getWeekLabel() {
   return `Sem ${week} · ${now.getFullYear()}`;
 }
 
-function saveAmrap(day, player) {
+async function saveAmrap(day, player) {
   const input = document.getElementById(`amrap-input-${day}-${player}`);
   const val = parseInt(input.value);
   if (isNaN(val) || val < 0) return;
-  const key = `amrap-${day}-${player}`;
-  const history = JSON.parse(localStorage.getItem(key) || '[]');
+
+  const btn = input.nextElementSibling;
+  btn.textContent = '...';
+  btn.disabled = true;
+
   const week = getWeekLabel();
-  const existing = history.findIndex(h => h.week === week);
-  if (existing >= 0) history[existing].score = val;
-  else history.unshift({ week, score: val });
-  if (history.length > 8) history.pop();
-  localStorage.setItem(key, JSON.stringify(history));
+
+  // Check if entry exists for this week
+  const existing = await sbFetch(`amrap_history?player=eq.${player}&day=eq.${day}&week_label=eq.${encodeURIComponent(week)}&select=id`);
+
+  if (existing && existing.length > 0) {
+    await sbFetch(`amrap_history?id=eq.${existing[0].id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ score: val })
+    });
+  } else {
+    await sbFetch('amrap_history', {
+      method: 'POST',
+      body: JSON.stringify({ player, day, week_label: week, score: val })
+    });
+  }
+
   input.value = '';
+  btn.textContent = 'Guardar';
+  btn.disabled = false;
   renderAmrapHistory();
 }
 
-function renderAmrapHistory() {
-  ['lunes'].forEach(day => {
-    ['him','her'].forEach(player => {
+async function renderAmrapHistory() {
+  for (const day of ['lunes']) {
+    for (const player of ['him','her']) {
       const el = document.getElementById(`amrap-hist-${day}-${player}`);
-      if (!el) return;
-      const key = `amrap-${day}-${player}`;
-      const history = JSON.parse(localStorage.getItem(key) || '[]');
-      if (history.length === 0) {
+      if (!el) continue;
+
+      el.innerHTML = '<div class="no-history">Cargando...</div>';
+
+      const data = await sbFetch(`amrap_history?player=eq.${player}&day=eq.${day}&order=created_at.desc&limit=8&select=week_label,score`);
+
+      if (!data || data.length === 0) {
         el.innerHTML = '<div class="no-history">Aún no hay registros</div>';
-        return;
+        continue;
       }
-      const best = Math.max(...history.map(h=>h.score));
-      el.innerHTML = '<div class="amrap-history-title">Historial</div>' +
-        history.map((h,i) => {
+
+      const best = Math.max(...data.map(h => h.score));
+      el.innerHTML = '<div class="amrap-history-title">Historial compartido 🌐</div>' +
+        data.map((h, i) => {
           const isBest = h.score === best;
-          const trend = i < history.length-1 ? (h.score > history[i+1].score ? '↑' : h.score < history[i+1].score ? '↓' : '→') : '';
+          const trend = i < data.length - 1 ? (h.score > data[i+1].score ? '↑' : h.score < data[i+1].score ? '↓' : '→') : '';
           return `<div class="history-entry">
-            <span class="history-week">${h.week} ${trend}</span>
+            <span class="history-week">${h.week_label} ${trend}</span>
             <span class="history-score ${player==='her'?'her':''}">${h.score} rondas ${isBest?'🏆':''}</span>
           </div>`;
         }).join('');
-    });
-  });
+    }
+  }
 }
 
 renderAmrapHistory();
