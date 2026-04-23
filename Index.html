@@ -7,201 +7,196 @@
 <title>Rutina Pareja</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--surface:#141414;--s2:#1c1c1c;--border:#282828;--text:#f5f2ee;--muted:#666;--him:#f0a500;--her:#f472b6;--green:#52d68a;--red:#f06060;--blue:#3ecfcf;--purple:#7b6cf6}
+:root{
+  --bg:#0a0a0a;--surface:#141414;--s2:#1c1c1c;--s3:#222;
+  --border:#282828;--text:#f5f2ee;--muted:#666;
+  --him:#f0a500;--her:#f472b6;--green:#52d68a;--red:#f06060;
+  --blue:#3ecfcf;--purple:#7b6cf6;--orange:#ff8c42;
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-height:100vh;padding-bottom:60px}
 
 /* HERO */
-.hero{padding:36px 20px 22px;position:relative;overflow:hidden}
-.hero::before{content:’’;position:fixed;top:-100px;right:-80px;width:350px;height:350px;background:radial-gradient(circle,rgba(244,114,182,0.07) 0%,transparent 65%);pointer-events:none;z-index:0}
-.hero-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
-.hero h1{font-family:‘Barlow Condensed’,sans-serif;font-size:54px;font-weight:800;line-height:0.9;text-transform:uppercase}
+.hero{padding:32px 20px 18px;position:relative}
+.hero::before{content:’’;position:fixed;top:-100px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(244,114,182,0.07) 0%,transparent 65%);pointer-events:none}
+.hero-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
+.hero h1{font-family:‘Barlow Condensed’,sans-serif;font-size:48px;font-weight:800;line-height:0.9;text-transform:uppercase}
 .him-c{color:var(–him)}.her-c{color:var(–her)}
 
 /* PLAYER */
-.ptoggle{display:flex;gap:8px;padding:0 20px 20px}
-.ptab{flex:1;padding:11px 8px;border-radius:12px;border:1.5px solid var(–border);text-align:center;cursor:pointer;transition:all 0.2s;color:var(–muted);background:var(–surface)}
-.ptab-icon{font-size:22px;display:block;margin-bottom:2px}
+.ptoggle{display:flex;gap:8px;padding:14px 20px}
+.ptab{flex:1;padding:10px 8px;border-radius:12px;border:1.5px solid var(–border);text-align:center;cursor:pointer;transition:all 0.2s;color:var(–muted);background:var(–surface)}
+.ptab-icon{font-size:20px;display:block;margin-bottom:2px}
 .ptab-name{font-size:12px;font-weight:500}
 .ptab.him.active{border-color:var(–him);background:rgba(240,165,0,0.1);color:var(–him)}
 .ptab.her.active{border-color:var(–her);background:rgba(244,114,182,0.1);color:var(–her)}
 
-/* WEEK */
-.week-strip{display:flex;gap:6px;padding:0 20px 22px;overflow-x:auto;scrollbar-width:none}
-.week-strip::-webkit-scrollbar{display:none}
-.day-pill{flex-shrink:0;padding:7px 13px;border-radius:100px;border:1px solid var(–border);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s;color:var(–muted);background:var(–surface)}
-.day-pill.active{color:#0a0a0a;border-color:transparent}
-.day-pill[data-day=“lunes”].active{background:var(–him)}
-.day-pill[data-day=“martes”].active{background:var(–blue)}
-.day-pill[data-day=“miercoles”].active{background:var(–purple)}
-.day-pill[data-day=“jueves”].active{background:var(–him)}
-.day-pill[data-day=“viernes”].active{background:var(–green)}
-.day-pill[data-day=“finde”].active{background:var(–red)}
-.day-pill[data-day=“sabado”].active{background:var(–red)}
-.day-pill[data-day=“domingo”].active{background:#ff8c42}
+/* WEEK SELECTOR */
+.week-selector{padding:0 16px 16px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.week-selector::-webkit-scrollbar{display:none}
+.week-btn{flex-shrink:0;padding:8px 14px;border-radius:10px;border:1px solid var(–border);background:var(–surface);color:var(–muted);font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.week-btn.active{border-color:var(–him);background:rgba(240,165,0,0.1);color:var(–him)}
+.add-week-btn{flex-shrink:0;padding:8px 14px;border-radius:10px;border:1px dashed var(–border);background:transparent;color:var(–muted);font-size:12px;cursor:pointer;transition:all 0.2s}
+.add-week-btn:hover{border-color:var(–him);color:var(–him)}
+
+/* DAY STRIP */
+.day-strip{display:flex;gap:6px;padding:0 16px 16px;overflow-x:auto;scrollbar-width:none}
+.day-strip::-webkit-scrollbar{display:none}
+.day-btn{flex-shrink:0;padding:7px 13px;border-radius:100px;border:1px solid var(–border);font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s;color:var(–muted);background:var(–surface)}
+.day-btn.active{color:#0a0a0a;border-color:transparent;background:var(–him)}
 
 /* PROGRESS */
-.prog-wrap{padding:0 16px;margin-bottom:20px}
-.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(–muted);margin-bottom:6px}
+.prog-wrap{padding:0 16px;margin-bottom:16px}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(–muted);margin-bottom:5px}
 .prog-bar{height:3px;background:var(–border);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;border-radius:3px;transition:width 0.4s;width:0%;background:var(–him)}
 .prog-fill.her{background:var(–her)}
 
-/* PANELS */
-.panels{padding:0 16px}
-.panel{display:none;animation:fadeUp 0.3s ease}
-.panel.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+/* CONTENT */
+.content{padding:0 16px}
 
-/* PANEL HEADER */
-.panel-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;padding:18px 20px;background:var(–surface);border-radius:16px;border:1px solid var(–border);position:relative;overflow:hidden}
-.panel-header::after{content:’’;position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
-.panel[data-day=“lunes”] .panel-header::after{background:var(–him)}
-.panel[data-day=“martes”] .panel-header::after{background:var(–blue)}
-.panel[data-day=“miercoles”] .panel-header::after{background:var(–purple)}
-.panel[data-day=“jueves”] .panel-header::after{background:var(–him)}
-.panel[data-day=“viernes”] .panel-header::after{background:var(–green)}
-.panel[data-day=“finde”] .panel-header::after{background:var(–red)}
-.panel[data-day=“sabado”] .panel-header::after{background:var(–red)}
-.panel[data-day=“domingo”] .panel-header::after{background:#ff8c42}
-.panel-icon{font-size:30px;line-height:1}
-.panel-title{font-family:‘Barlow Condensed’,sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;line-height:1;margin-bottom:3px}
-.panel-sub{font-size:12px;color:var(–muted);font-weight:300}
+/* LOADING */
+.loading{text-align:center;padding:40px;color:var(–muted);font-size:14px}
+.loading-spinner{width:32px;height:32px;border:2px solid var(–border);border-top-color:var(–him);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* DAY HEADER */
+.day-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;padding:16px 18px;background:var(–surface);border-radius:16px;border:1px solid var(–border);position:relative;overflow:hidden}
+.day-header::after{content:’’;position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;background:var(–him)}
+.day-header-icon{font-size:28px;line-height:1}
+.day-header-title{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;line-height:1;margin-bottom:3px}
+.day-header-sub{font-size:12px;color:var(–muted);font-weight:300}
+.day-header-edit{margin-left:auto;padding:5px 10px;border-radius:8px;border:1px solid var(–border);background:transparent;color:var(–muted);font-size:11px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.day-header-edit.on{border-color:var(–him);color:var(–him);background:rgba(240,165,0,0.08)}
 
 /* BLOCKS */
 .block{background:var(–surface);border:1px solid var(–border);border-radius:14px;margin-bottom:12px;overflow:hidden}
-.block-hd{padding:13px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(–border);cursor:pointer;user-select:none}
-.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.block-hd{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(–border);cursor:pointer;user-select:none}
+.bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .dot-w{background:var(–red)}.dot-a{background:var(–him)}.dot-b{background:var(–red)}.dot-r{background:var(–green)}
-.btitle{font-family:‘Barlow Condensed’,sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;flex:1}
-.bbadge{font-size:10px;padding:3px 8px;border-radius:100px;font-weight:500}
+.btitle{font-family:‘Barlow Condensed’,sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;flex:1}
+.bbadge{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:500;flex-shrink:0}
 .b-str{background:rgba(240,165,0,0.15);color:var(–him)}
 .b-amr{background:rgba(240,96,96,0.15);color:var(–red)}
 .b-emo{background:rgba(62,207,207,0.15);color:var(–blue)}
 .b-tab{background:rgba(240,96,96,0.15);color:var(–red)}
 .b-wrm{background:rgba(240,96,96,0.12);color:var(–red)}
 .b-rec{background:rgba(82,214,138,0.15);color:var(–green)}
-.chev{color:var(–muted);font-size:13px;transition:transform 0.25s}
+.chev{color:var(–muted);font-size:12px;transition:transform 0.25s;flex-shrink:0}
 .block.open .chev{transform:rotate(180deg)}
 .block-body{display:none;padding:12px 16px}
 .block.open .block-body{display:block}
 
-/* PLAYER SECTIONS */
-.shared{display:block}
-.him-only,.her-only{display:none}
-.sv-him .him-only{display:block}
-.sv-her .her-only{display:block}
-
 /* EX ROWS */
-.ex-list{margin-bottom:8px}
-.ex-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(–border);transition:opacity 0.2s}
+.ex-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(–border);transition:opacity 0.2s}
 .ex-row:last-child{border-bottom:none;padding-bottom:0}
 .ex-row:first-child{padding-top:0}
 .ex-row.done{opacity:0.35}
-.ex-chk{width:23px;height:23px;border-radius:6px;border:1.5px solid var(–border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s;cursor:pointer}
+.ex-chk{width:22px;height:22px;border-radius:6px;border:1.5px solid var(–border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all 0.2s;cursor:pointer}
 .sv-him .ex-row.done .ex-chk{background:var(–him);border-color:var(–him);color:#0a0a0a}
 .sv-her .ex-row.done .ex-chk{background:var(–her);border-color:var(–her);color:#0a0a0a}
-.ex-content{flex:1;min-width:0}
+.ex-content{flex:1;min-width:0;cursor:pointer}
 .ex-name-text{font-size:13px;font-weight:400;line-height:1.3}
 .ex-det-text{font-size:11px;color:var(–muted);font-weight:300}
-.ex-actions{display:flex;gap:4px;flex-shrink:0}
-.ex-edit-btn,.ex-del-btn{width:26px;height:26px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.2s}
+.ex-actions{display:none;gap:4px;flex-shrink:0}
+.edit-active .ex-actions{display:flex}
+.ex-edit-btn,.ex-del-btn{width:24px;height:24px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
 .ex-edit-btn{background:rgba(240,165,0,0.1);color:var(–him)}
 .ex-del-btn{background:rgba(240,96,96,0.1);color:var(–red)}
-.ex-edit-btn:hover{background:rgba(240,165,0,0.2)}
-.ex-del-btn:hover{background:rgba(240,96,96,0.2)}
+.ex-log-btn{width:24px;height:24px;border-radius:6px;border:none;cursor:pointer;background:rgba(82,214,138,0.1);color:var(–green);font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* EDIT MODE */
-.edit-mode .ex-actions{display:flex}
-.ex-actions{display:none}
-.edit-active .ex-actions{display:flex}
-
-/* ADD EXERCISE BTN */
-.add-ex-btn{width:100%;padding:9px;background:transparent;border:1px dashed var(–border);border-radius:10px;color:var(–muted);font-family:‘Barlow’,sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;margin-top:8px;display:none}
+/* ADD EX BTN */
+.add-ex-btn{width:100%;padding:8px;background:transparent;border:1px dashed var(–border);border-radius:10px;color:var(–muted);font-family:‘Barlow’,sans-serif;font-size:12px;cursor:pointer;transition:all 0.2s;margin-top:8px;display:none}
 .add-ex-btn:hover{border-color:var(–him);color:var(–him)}
 .edit-active .add-ex-btn{display:block}
 
-/* EDIT TOGGLE */
-.edit-toggle{display:flex;align-items:center;gap:6px;margin-left:auto;padding:4px 10px;border-radius:100px;border:1px solid var(–border);background:transparent;color:var(–muted);font-size:11px;font-family:‘Barlow’,sans-serif;cursor:pointer;transition:all 0.2s;flex-shrink:0}
-.edit-toggle.on{border-color:var(–him);color:var(–him);background:rgba(240,165,0,0.08)}
-
 /* INFO BOXES */
-.info{background:var(–s2);border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:12px;color:var(–muted);line-height:1.6}
+.info{background:var(–s2);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:var(–muted);line-height:1.6}
 .info strong{color:var(–text);font-weight:500}
 .info-him{border-left:2px solid var(–him);background:rgba(240,165,0,0.04)}
 .info-her{border-left:2px solid var(–her);background:rgba(244,114,182,0.04)}
-.sec-title{font-size:12px;font-weight:600;margin:12px 0 8px;color:var(–text)}
-.meta{margin-top:10px;padding:9px 12px;border-left:2px solid var(–him);background:rgba(240,165,0,0.05);border-radius:0 8px 8px 0;font-size:12px;color:var(–muted);line-height:1.5}
+.meta{margin-top:10px;padding:8px 12px;border-left:2px solid var(–him);background:rgba(240,165,0,0.05);border-radius:0 8px 8px 0;font-size:12px;color:var(–muted);line-height:1.5}
 .meta strong{color:var(–him)}
-.warn{background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(–him);margin-bottom:14px}
+.warn{background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.25);border-radius:10px;padding:10px 14px;font-size:12px;color:var(–him);margin-bottom:12px}
+.sec-title{font-size:12px;font-weight:600;margin:10px 0 6px;color:var(–text)}
 
-/* EMOM TABLE */
-.emom-t{width:100%;border-collapse:collapse;margin-bottom:10px}
-.emom-t td{padding:7px 0;border-bottom:1px solid var(–border);font-size:13px;vertical-align:top}
-.emom-t td:first-child{width:34px;color:var(–muted);font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:500}
-.emom-t tr:last-child td{border-bottom:none}
+/* SERIES LOG */
+.series-panel{background:var(–s2);border-radius:12px;padding:12px;margin-top:10px;border:1px solid var(–border)}
+.series-panel-title{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.series-panel-title span{color:var(–green);font-size:10px;cursor:pointer}
+.series-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.series-num{font-family:‘Barlow Condensed’,sans-serif;font-size:18px;font-weight:700;color:var(–muted);width:24px;text-align:center;flex-shrink:0}
+.series-input{flex:1;background:var(–s3);border:1px solid var(–border);border-radius:8px;padding:7px 10px;color:var(–text);font-family:‘Barlow’,sans-serif;font-size:13px;outline:none;transition:border-color 0.2s;width:100%}
+.series-input:focus{border-color:var(–him)}
+.series-input.her-focus:focus{border-color:var(–her)}
+.series-unit{font-size:11px;color:var(–muted);flex-shrink:0}
+.add-serie-btn{width:100%;padding:7px;background:transparent;border:1px dashed var(–border);border-radius:8px;color:var(–muted);font-family:‘Barlow’,sans-serif;font-size:11px;cursor:pointer;transition:all 0.2s;margin-top:4px}
+.add-serie-btn:hover{border-color:var(–green);color:var(–green)}
+.save-series-btn{width:100%;padding:9px;background:var(–green);color:#0a0a0a;border:none;border-radius:8px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:opacity 0.2s;margin-top:8px}
+.save-series-btn:hover{opacity:0.85}
+.save-series-btn.her{background:var(–her)}
+.series-history{margin-top:10px}
+.series-history-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
+.sh-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(–border);font-size:12px}
+.sh-row:last-child{border-bottom:none}
+.sh-label{color:var(–muted)}
+.sh-val{font-family:‘Barlow Condensed’,sans-serif;font-size:16px;font-weight:700;color:var(–him)}
+.sh-val.her{color:var(–her)}
 
 /* AMRAP */
-.amrap-block{margin-top:12px;background:var(–s2);border-radius:12px;padding:14px;border:1px solid var(–border)}
-.amrap-title{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:12px}
-.amrap-input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.amrap-input-row label{font-size:12px;color:var(–muted);flex:1}
-.amrap-input-row input{width:60px;background:var(–border);border:none;border-radius:8px;padding:6px 8px;color:var(–text);font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:700;text-align:center;outline:none}
-.save-amrap-btn{padding:8px 14px;background:var(–him);color:#0a0a0a;border:none;border-radius:8px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
-.save-amrap-btn:hover{opacity:0.85}
-.amrap-history{margin-top:10px}
-.amrap-history-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:8px}
-.history-entry{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(–border);font-size:12px}
-.history-entry:last-child{border-bottom:none}
-.history-week{color:var(–muted)}
-.history-score{font-family:‘Barlow Condensed’,sans-serif;font-size:18px;font-weight:700;color:var(–him)}
-.history-score.her{color:var(–her)}
-.no-history{font-size:12px;color:var(–muted);font-style:italic}
-
-/* SWIM */
-.swim-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;text-align:center;background:linear-gradient(135deg,rgba(123,108,246,0.12),rgba(62,207,207,0.06));border:1px solid rgba(123,108,246,0.25);border-radius:12px;padding:14px 16px;margin-bottom:12px}
-.swim-num{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:800}
-.swim-lbl{font-size:10px;color:var(–muted)}
-
-/* SPORT CARD */
-.sport-card{background:var(–surface);border:1px solid var(–border);border-radius:14px;padding:20px;text-align:center;margin-bottom:12px}
-.sport-icon{font-size:44px;margin-bottom:8px}
-.sport-name{font-family:‘Barlow Condensed’,sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;margin-bottom:6px}
-.sport-tip{font-size:12px;color:var(–muted);line-height:1.6}
-
-.tonight{margin-bottom:12px;padding:12px 14px;background:var(–surface);border:1px solid var(–border);border-radius:12px}
-.tonight-l{font-size:11px;color:var(–muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.1em}
-.tonight-v{font-size:15px;font-weight:500}
+.amrap-block{margin-top:10px;background:var(–s2);border-radius:12px;padding:12px;border:1px solid var(–border)}
+.amrap-title{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:10px}
+.amrap-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.amrap-row label{font-size:12px;color:var(–muted);flex:1}
+.amrap-row input{width:56px;background:var(–border);border:none;border-radius:6px;padding:5px 8px;color:var(–text);font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:700;text-align:center;outline:none}
+.save-amrap-btn{padding:7px 12px;background:var(–him);color:#0a0a0a;border:none;border-radius:8px;font-family:‘Barlow’,sans-serif;font-size:11px;font-weight:600;cursor:pointer}
 
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
 .modal{background:#1a1a1a;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:500px;border:1px solid var(–border);border-bottom:none;animation:slideUp 0.3s ease}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-title{font-family:‘Barlow Condensed’,sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;margin-bottom:20px}
-.modal-field{margin-bottom:14px}
-.modal-field label{display:block;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:6px}
-.modal-field input{width:100%;background:var(–s2);border:1px solid var(–border);border-radius:10px;padding:12px 14px;color:var(–text);font-family:‘Barlow’,sans-serif;font-size:14px;outline:none;transition:border-color 0.2s}
-.modal-field input:focus{border-color:var(–him)}
-.modal-btns{display:flex;gap:8px;margin-top:20px}
-.modal-save{flex:1;padding:14px;background:var(–him);color:#0a0a0a;border:none;border-radius:12px;font-family:‘Barlow’,sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity 0.2s}
-.modal-save:hover{opacity:0.85}
-.modal-cancel{padding:14px 20px;background:var(–s2);color:var(–muted);border:1px solid var(–border);border-radius:12px;font-family:‘Barlow’,sans-serif;font-size:14px;cursor:pointer}
+.modal-title{font-family:‘Barlow Condensed’,sans-serif;font-size:20px;font-weight:800;text-transform:uppercase;margin-bottom:18px}
+.modal-field{margin-bottom:12px}
+.modal-field label{display:block;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);margin-bottom:5px}
+.modal-field input,.modal-field select{width:100%;background:var(–s2);border:1px solid var(–border);border-radius:10px;padding:11px 13px;color:var(–text);font-family:‘Barlow’,sans-serif;font-size:14px;outline:none;transition:border-color 0.2s}
+.modal-field input:focus,.modal-field select:focus{border-color:var(–him)}
+.modal-field select option{background:var(–s2)}
+.modal-btns{display:flex;gap:8px;margin-top:18px}
+.modal-save{flex:1;padding:13px;background:var(–him);color:#0a0a0a;border:none;border-radius:12px;font-family:‘Barlow’,sans-serif;font-size:14px;font-weight:600;cursor:pointer}
+.modal-cancel{padding:13px 18px;background:var(–s2);color:var(–muted);border:1px solid var(–border);border-radius:12px;font-family:‘Barlow’,sans-serif;font-size:14px;cursor:pointer}
+
+/* WEEK NAME EDITOR */
+.week-name-edit{display:flex;gap:8px;align-items:center;padding:0 16px 12px}
+.week-name-input{flex:1;background:var(–s2);border:1px solid var(–border);border-radius:10px;padding:8px 12px;color:var(–text);font-family:‘Barlow’,sans-serif;font-size:13px;outline:none}
+.week-name-input:focus{border-color:var(–him)}
+.week-name-save{padding:8px 14px;background:var(–him);color:#0a0a0a;border:none;border-radius:10px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:600;cursor:pointer}
 
 /* PROG */
-.prog-section{margin:20px 16px 12px;padding:16px;background:var(–surface);border:1px solid var(–border);border-radius:14px}
-.prog-lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(–muted);margin-bottom:12px}
-.prog-grid{display:grid;grid-template-columns:60px 1fr;gap:8px;font-size:13px}
-.reset-btn{display:block;margin:0 16px;width:calc(100% - 32px);padding:13px;background:transparent;border:1px solid var(–border);border-radius:10px;color:var(–muted);font-family:‘Barlow’,sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s}
+.prog-section{margin:16px 16px 12px;padding:14px;background:var(–surface);border:1px solid var(–border);border-radius:14px}
+.prog-lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(–muted);margin-bottom:10px}
+.prog-grid{display:grid;grid-template-columns:60px 1fr;gap:6px;font-size:12px}
+
+.reset-btn{display:block;margin:0 16px;width:calc(100% - 32px);padding:12px;background:transparent;border:1px solid var(–border);border-radius:10px;color:var(–muted);font-family:‘Barlow’,sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s}
 .reset-btn:hover{border-color:#555;color:var(–text)}
+
+.empty-day{text-align:center;padding:40px 20px;color:var(–muted)}
+.empty-day-icon{font-size:40px;margin-bottom:12px}
+.empty-day-text{font-size:14px;margin-bottom:16px}
+.empty-day-btn{padding:10px 20px;background:rgba(240,165,0,0.1);border:1px solid var(–him);border-radius:10px;color:var(–him);font-family:‘Barlow’,sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s}
+
+.sync-indicator{position:fixed;top:16px;right:16px;background:var(–green);color:#0a0a0a;font-size:11px;font-weight:600;padding:4px 10px;border-radius:100px;opacity:0;transition:opacity 0.3s;z-index:999;pointer-events:none}
+.sync-indicator.show{opacity:1}
 </style>
 
 </head>
 <body>
 
+<div class="sync-indicator" id="syncIndicator">✓ Guardado</div>
+
 <div class="hero">
-  <div class="hero-label">Rutina pareja · 7 días</div>
-  <h1><span class="him-c">ÉL</span> <span style="color:var(--muted);font-size:36px">&</span><br><span class="her-c">ELLA</span></h1>
+  <div class="hero-label">Rutina pareja · 4 semanas</div>
+  <h1><span class="him-c">ÉL</span> <span style="color:var(--muted);font-size:32px">&</span><br><span class="her-c">ELLA</span></h1>
 </div>
 
 <div class="ptoggle">
@@ -213,527 +208,30 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-
   </div>
 </div>
 
-<div class="week-strip">
-  <div class="day-pill active" data-day="lunes" onclick="switchDay('lunes',this)">LUN</div>
-  <div class="day-pill" data-day="martes" onclick="switchDay('martes',this)">MAR</div>
-  <div class="day-pill" data-day="miercoles" onclick="switchDay('miercoles',this)">MIÉ</div>
-  <div class="day-pill" data-day="jueves" onclick="switchDay('jueves',this)">JUE</div>
-  <div class="day-pill" data-day="viernes" onclick="switchDay('viernes',this)">VIE</div>
-  <div class="day-pill" data-day="sabado" onclick="switchDay('sabado',this)">SÁB</div>
-  <div class="day-pill" data-day="domingo" onclick="switchDay('domingo',this)">DOM</div>
+<!-- WEEK SELECTOR -->
+
+<div class="week-selector" id="weekSelector"></div>
+<div class="week-name-edit" id="weekNameEdit" style="display:none">
+  <input type="text" class="week-name-input" id="weekNameInput" placeholder="Nombre de la semana">
+  <button class="week-name-save" onclick="saveWeekName()">Guardar</button>
 </div>
+
+<!-- DAY STRIP -->
+
+<div class="day-strip" id="dayStrip"></div>
+
+<!-- PROGRESS -->
 
 <div class="prog-wrap">
   <div class="prog-label"><span id="pName">Asier</span><span id="pText">0 / 0</span></div>
   <div class="prog-bar"><div class="prog-fill" id="pFill"></div></div>
 </div>
 
-<div class="panels sv-him" id="mainPanels">
+<!-- MAIN CONTENT -->
 
-<!-- ===== LUNES ===== -->
-
-<div class="panel active" data-day="lunes">
-  <div class="panel-header">
-    <div class="panel-icon">🏋️</div>
-    <div><div class="panel-title">Lunes AM · Tren inferior</div><div class="panel-sub">Fuerza + Core · ~55 min · juntos</div></div>
-  </div>
-
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-w"></div><div class="btitle">Calentamiento · juntos</div>
-      <span class="bbadge b-wrm">8 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-lunes-warm-shared">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Foam roller cuádriceps y glúteos</div><div class="ex-det-text">2 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Movilidad de cadera (mundo)</div><div class="ex-det-text">2×10</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con peso corporal lenta</div><div class="ex-det-text">2×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'lunes-warm-shared')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Bloque A · Fuerza</div>
-      <span class="bbadge b-str">2 MIN DESC</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong> · carga máxima controlada</div>
-        <div class="ex-list" id="ex-lunes-a-him">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Goblet Squat KB 24kg</div><div class="ex-det-text">4×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Romanian Deadlift mancuernas</div><div class="ex-det-text">4×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Bulgarian Split Squat</div><div class="ex-det-text">3×10/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Hip Thrust KB 24kg</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'lunes-a-him')">+ Añadir ejercicio</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · técnica y rango completo</div>
-        <div class="ex-list" id="ex-lunes-a-her">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Goblet Squat KB 12kg</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Romanian Deadlift mancuernas 12kg</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Bulgarian Split Squat (sin peso)</div><div class="ex-det-text">3×12/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Hip Thrust KB 16kg</div><div class="ex-det-text">3×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'lunes-a-her')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-b"></div><div class="btitle">Bloque B · AMRAP 12 min</div>
-      <span class="bbadge b-amr">12 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="info">Completad la mayor cantidad de rondas <strong>sin parar</strong>.</div>
-      <div class="him-only">
-        <div class="ex-list" id="ex-lunes-b-him">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Swing KB 24kg</div><div class="ex-det-text">15 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con salto</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Rodillo abdominal</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Lanzamiento pelota medicinal</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Mountain climbers</div><div class="ex-det-text">20 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'lunes-b-him')">+ Añadir ejercicio</button>
-        <div class="amrap-block" id="amrap-lunes-him">
-          <div class="amrap-title">🎯 Historial de rondas · Asier</div>
-          <div class="amrap-input-row">
-            <label>Rondas esta semana</label>
-            <input type="number" min="0" max="20" placeholder="0" id="amrap-input-lunes-him">
-            <button class="save-amrap-btn" onclick="saveAmrap('lunes','him')">Guardar</button>
-          </div>
-          <div class="amrap-history" id="amrap-hist-lunes-him"></div>
-        </div>
-      </div>
-      <div class="her-only">
-        <div class="ex-list" id="ex-lunes-b-her">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Swing KB 12kg</div><div class="ex-det-text">15 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con salto</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Dead bug</div><div class="ex-det-text">10 reps/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Lanzamiento pelota medicinal</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Mountain climbers</div><div class="ex-det-text">20 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'lunes-b-her')">+ Añadir ejercicio</button>
-        <div class="amrap-block" id="amrap-lunes-her">
-          <div class="amrap-title">🎯 Historial de rondas · Ella</div>
-          <div class="amrap-input-row">
-            <label>Rondas esta semana</label>
-            <input type="number" min="0" max="20" placeholder="0" id="amrap-input-lunes-her">
-            <button class="save-amrap-btn" onclick="saveAmrap('lunes','her')">Guardar</button>
-          </div>
-          <div class="amrap-history" id="amrap-hist-lunes-her"></div>
-        </div>
-      </div>
-      <div class="meta"><strong>Meta:</strong> 4+ rondas. Superad vuestra marca cada semana.</div>
-    </div>
-  </div>
-  <div class="tonight"><div class="tonight-l">Esta tarde</div><div class="tonight-v">⚽ Fútbol sala nocturno (Asier)</div></div>
+<div class="content sv-him" id="mainContent">
+  <div class="loading"><div class="loading-spinner"></div>Cargando rutina...</div>
 </div>
-
-<!-- ===== MARTES ===== -->
-
-<div class="panel" data-day="martes">
-  <div class="panel-header">
-    <div class="panel-icon">💪</div>
-    <div><div class="panel-title">Martes · Tren superior</div><div class="panel-sub">Fuerza + Circuito · ~50 min · juntos</div></div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-w"></div><div class="btitle">Calentamiento · juntos</div>
-      <span class="bbadge b-wrm">8 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-martes-warm-shared">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Foam roller espalda dorsal</div><div class="ex-det-text">2 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Face pulls con goma</div><div class="ex-det-text">2×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Rotación de manguito con goma</div><div class="ex-det-text">2×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'martes-warm-shared')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Bloque A · Fuerza superior</div>
-      <span class="bbadge b-str">2 MIN DESC</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong></div>
-        <div class="ex-list" id="ex-martes-a-him">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Press banca mancuernas 24kg</div><div class="ex-det-text">4×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Remo un brazo mancuerna 24kg</div><div class="ex-det-text">4×8/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Press militar de pie mancuernas</div><div class="ex-det-text">3×10</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Remo invertido TRX</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'martes-a-him')">+ Añadir ejercicio</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · más volumen, menos carga</div>
-        <div class="ex-list" id="ex-martes-a-her">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Press banca mancuernas 10kg</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Remo un brazo mancuerna 12kg</div><div class="ex-det-text">3×12/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Press de hombros mancuernas 8kg</div><div class="ex-det-text">3×12</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Remo invertido TRX</div><div class="ex-det-text">3×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'martes-a-her')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-b"></div><div class="btitle">Bloque B · EMOM 12 min</div>
-      <span class="bbadge b-emo">12 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="info">Cada minuto hacé los reps indicados. El resto del minuto es descanso. × 3 vueltas.</div>
-      <div class="him-only">
-        <div class="sec-title" style="color:var(--him)">👨 Asier</div>
-        <table class="emom-t">
-          <tr><td>1</td><td>Push-up explosivo · 10 reps</td></tr>
-          <tr><td>2</td><td>Remo TRX · 10 reps</td></tr>
-          <tr><td>3</td><td>Press con goma de pie · 12 reps</td></tr>
-          <tr><td>4</td><td>Curl martillo mancuernas · 10 reps</td></tr>
-        </table>
-      </div>
-      <div class="her-only">
-        <div class="sec-title" style="color:var(--her)">👩 Ella</div>
-        <table class="emom-t">
-          <tr><td>1</td><td>Push-up en rodillas o inclinado · 12 reps</td></tr>
-          <tr><td>2</td><td>Remo TRX · 12 reps</td></tr>
-          <tr><td>3</td><td>Press con goma de pie · 15 reps</td></tr>
-          <tr><td>4</td><td>Curl con goma o mancuerna 6kg · 12 reps</td></tr>
-        </table>
-      </div>
-      <div class="meta"><strong>Meta:</strong> Terminar cada ejercicio en menos de 35 seg.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MIÉRCOLES ===== -->
-
-<div class="panel" data-day="miercoles">
-  <div class="panel-header">
-    <div class="panel-icon">🏊</div>
-    <div><div class="panel-title">Miércoles · Natación</div><div class="panel-sub">500 m · Técnica + Velocidad · ~35 min</div></div>
-  </div>
-  <div class="swim-grid">
-    <div><div class="swim-num" style="color:var(--red)">100m</div><div class="swim-lbl">Calent.</div></div>
-    <div><div class="swim-num" style="color:var(--purple)">150m</div><div class="swim-lbl">Técnica</div></div>
-    <div><div class="swim-num" style="color:var(--red)">200m</div><div class="swim-lbl">Velocidad</div></div>
-    <div><div class="swim-num" style="color:var(--green)">50m</div><div class="swim-lbl">Calma</div></div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-w"></div><div class="btitle">Calentamiento · juntos</div>
-      <span class="bbadge b-wrm">100 M</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-mie-warm">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Crol suave</div><div class="ex-det-text">4 largos</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Técnica · juntos</div>
-      <span class="bbadge" style="background:rgba(123,108,246,0.15);color:var(--purple)">150 M</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="info">Descansa 20 seg entre ejercicios. Calidad > velocidad.</div>
-      <div class="shared">
-        <div class="ex-list" id="ex-mie-tech">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Patada de crol con tabla</div><div class="ex-det-text">2 largos</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Un brazo — derecho</div><div class="ex-det-text">1 largo</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Un brazo — izquierdo</div><div class="ex-det-text">1 largo</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Crol con pausa catch-up</div><div class="ex-det-text">2 largos</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'mie-tech')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-b"></div><div class="btitle">Velocidad</div>
-      <span class="bbadge b-amr">200 M</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong> · descanso 25–30 seg entre series</div>
-        <div class="ex-list" id="ex-mie-vel-him">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sprint 25m</div><div class="ex-det-text">×8 series</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'mie-vel-him')">+ Añadir serie</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · descanso 35–40 seg</div>
-        <div class="ex-list" id="ex-mie-vel-her">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sprint 25m</div><div class="ex-det-text">×6 series</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'mie-vel-her')">+ Añadir serie</button>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-r"></div><div class="btitle">Vuelta a la calma · juntos</div>
-      <span class="bbadge b-rec">50 M</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-mie-calma">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Crol muy suave o espalda</div><div class="ex-det-text">2 largos</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'mie-calma')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== JUEVES ===== -->
-
-<div class="panel" data-day="jueves">
-  <div class="panel-header">
-    <div class="panel-icon">⚡</div>
-    <div><div class="panel-title">Jueves AM · Potencia</div><div class="panel-sub">Circuito Explosivo · ~50 min</div></div>
-  </div>
-  <div class="warn">⚠️ Asier: hacelo con al menos 6 horas antes del futsal nocturno</div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-w"></div><div class="btitle">Calentamiento · juntos</div>
-      <span class="bbadge b-wrm">10 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-jue-warm">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Trote en el lugar</div><div class="ex-det-text">3 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Skipping + talones al glúteo</div><div class="ex-det-text">2 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con salto sin peso</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Lanzamiento pelota medicinal al piso</div><div class="ex-det-text">10 reps</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Bloque A · Potencia</div>
-      <span class="bbadge b-str">90 SEG DESC</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong> · velocidad máxima</div>
-        <div class="ex-list" id="ex-jue-a-him">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Swing KB 24kg</div><div class="ex-det-text">4×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Lanzamiento pelota medicinal al piso</div><div class="ex-det-text">4×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Step-up explosivo al banco</div><div class="ex-det-text">3×6/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con salto KB 12kg</div><div class="ex-det-text">3×6</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'jue-a-him')">+ Añadir ejercicio</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · introducción a potencia</div>
-        <div class="ex-list" id="ex-jue-a-her">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Swing KB 12kg</div><div class="ex-det-text">4×10</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Lanzamiento pelota medicinal al piso</div><div class="ex-det-text">3×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Step-up explosivo al banco (sin peso)</div><div class="ex-det-text">3×8/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Sentadilla con salto sin peso</div><div class="ex-det-text">3×8</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'jue-a-her')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-b"></div><div class="btitle">Bloque B · Tabata · juntos</div>
-      <span class="bbadge b-tab">8 MIN 🔥</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="info">20 seg trabajo / 10 seg descanso × 8 rondas. <strong>Mismo ejercicio, cada uno a su ritmo.</strong></div>
-      <div class="sec-title">Tabata 1 — Lanzamiento pelota contra pared</div>
-      <div class="shared">
-        <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">20 seg lanzando con toda la potencia</div></div></div>
-        <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">10 seg descanso × 8 rondas</div><div class="ex-det-text">4 min</div></div></div>
-      </div>
-      <div class="sec-title">Tabata 2 — Burpee con salto</div>
-      <div class="shared">
-        <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">20 seg burpees a full</div></div></div>
-        <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">10 seg descanso × 8 rondas</div><div class="ex-det-text">4 min</div></div></div>
-      </div>
-      <div class="meta"><strong>Meta:</strong> No bajar la intensidad en las últimas 3 rondas.</div>
-    </div>
-  </div>
-  <div class="tonight"><div class="tonight-l">Esta tarde</div><div class="tonight-v">⚽ Fútbol sala nocturno (Asier)</div></div>
-</div>
-
-<!-- ===== VIERNES ===== -->
-
-<div class="panel" data-day="viernes">
-  <div class="panel-header">
-    <div class="panel-icon">♻️</div>
-    <div><div class="panel-title">Viernes · Recuperación</div><div class="panel-sub">Activa · 25–35 min · juntos</div></div>
-  </div>
-  <div class="block open">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-r"></div><div class="btitle">Recuperación · juntos</div>
-      <span class="bbadge b-rec">25 MIN</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-vie-rec">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Foam roller completo</div><div class="ex-det-text">8 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Pistola masajes isquios y pantorrillas</div><div class="ex-det-text">5 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Estiramiento cadera (paloma)</div><div class="ex-det-text">2×60 seg/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Respiración diafragmática</div><div class="ex-det-text">5 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Gato-vaca</div><div class="ex-det-text">2×10</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Rotación torácica sentado</div><div class="ex-det-text">2×10/lado</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Child's pose con apertura lateral</div><div class="ex-det-text">2×30 seg</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'vie-rec')">+ Añadir actividad</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SÁBADO ===== -->
-
-<div class="panel" data-day="sabado">
-  <div class="panel-header">
-    <div class="panel-icon">⚽</div>
-    <div><div class="panel-title">Sábado</div><div class="panel-sub">Partido o entrenamiento libre</div></div>
-  </div>
-  <div class="sport-card">
-    <div class="sport-icon">⚽</div>
-    <div class="sport-name" style="color:var(--red)">Partido</div>
-    <div class="sport-tip">Si hay partido, disfrútalo. Si no, usa los bloques de abajo para montar tu sesión libre.</div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-r"></div><div class="btitle">Post-partido · juntos</div>
-      <span class="bbadge b-rec">OPCIONAL</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-sab-post">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Foam roller piernas</div><div class="ex-det-text">5 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Estiramiento isquios y pantorrillas</div><div class="ex-det-text">2 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Eccentric heel drops (fascitis Asier)</div><div class="ex-det-text">3×15</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'sab-post')">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Sesión libre · sin partido</div>
-      <span class="bbadge b-str">LIBRE</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong> · añade lo que quieras</div>
-        <div class="ex-list" id="ex-sab-libre-him"></div>
-        <button class="add-ex-btn" onclick="addEx(this,'sab-libre-him')" style="display:block;margin-top:0">+ Añadir ejercicio</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · añade lo que quieras</div>
-        <div class="ex-list" id="ex-sab-libre-her"></div>
-        <button class="add-ex-btn" onclick="addEx(this,'sab-libre-her')" style="display:block;margin-top:0">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== DOMINGO ===== -->
-
-<div class="panel" data-day="domingo">
-  <div class="panel-header">
-    <div class="panel-icon">😴</div>
-    <div><div class="panel-title">Domingo</div><div class="panel-sub">Descanso o sesión libre</div></div>
-  </div>
-  <div class="sport-card">
-    <div class="sport-icon">🌿</div>
-    <div class="sport-name" style="color:#ff8c42">Descanso</div>
-    <div class="sport-tip">El descanso es parte del entrenamiento. Si tienes energía, usa los bloques de abajo para movilidad o lo que quieras.</div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-r"></div><div class="btitle">Movilidad · opcional</div>
-      <span class="bbadge b-rec">OPCIONAL</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="shared">
-        <div class="ex-list" id="ex-dom-mov">
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Foam roller cuerpo completo</div><div class="ex-det-text">10 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-          <div class="ex-row" onclick="toggleDone(this)"><div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">Estiramiento global</div><div class="ex-det-text">10 min</div></div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div></div>
-        </div>
-        <button class="add-ex-btn" onclick="addEx(this,'dom-mov')">+ Añadir actividad</button>
-      </div>
-    </div>
-  </div>
-  <div class="block">
-    <div class="block-hd" onclick="tb(this)">
-      <div class="bdot dot-a"></div><div class="btitle">Sesión libre · si hay energía</div>
-      <span class="bbadge b-str">LIBRE</span>
-      <button class="edit-toggle" onclick="toggleEdit(event,this)">✏️ Editar</button>
-      <span class="chev">▾</span>
-    </div>
-    <div class="block-body">
-      <div class="him-only">
-        <div class="info info-him">👨 <strong>Asier</strong> · añade lo que quieras</div>
-        <div class="ex-list" id="ex-dom-libre-him"></div>
-        <button class="add-ex-btn" onclick="addEx(this,'dom-libre-him')" style="display:block;margin-top:0">+ Añadir ejercicio</button>
-      </div>
-      <div class="her-only">
-        <div class="info info-her">👩 <strong>Ella</strong> · añade lo que quieras</div>
-        <div class="ex-list" id="ex-dom-libre-her"></div>
-        <button class="add-ex-btn" onclick="addEx(this,'dom-libre-her')" style="display:block;margin-top:0">+ Añadir ejercicio</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div><!-- /panels -->
 
 <div class="prog-section">
   <div class="prog-lbl">📈 Progresión · cada 2 semanas</div>
@@ -750,7 +248,7 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <div class="modal-title" id="modalTitle">Editar ejercicio</div>
+    <div class="modal-title" id="modalTitle">Ejercicio</div>
     <div class="modal-field">
       <label>Nombre del ejercicio</label>
       <input type="text" id="modalName" placeholder="Ej: Goblet Squat KB 24kg">
@@ -759,260 +257,745 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-
       <label>Series / Reps / Tiempo</label>
       <input type="text" id="modalDet" placeholder="Ej: 4×8 o 3 min">
     </div>
+    <div class="modal-field" id="modalPlayerField">
+      <label>Para quién</label>
+      <select id="modalPlayer">
+        <option value="shared">Ambos</option>
+        <option value="him">Solo Asier</option>
+        <option value="her">Solo Ella</option>
+      </select>
+    </div>
     <div class="modal-btns">
       <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="modal-save" id="modalSave">Guardar</button>
+      <button class="modal-save" id="modalSaveBtn">Guardar</button>
     </div>
   </div>
 </div>
 
 <script>
-let currentDay = 'lunes';
+const SB_URL = 'https://wovnsrwlqgwmfixpvlvi.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indvdm5zcndscWd3bWZpeHB2bHZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MzQyNjksImV4cCI6MjA5MjQxMDI2OX0.4PUK1r8xPSgl5vRHt-NCA7IUg4tNO_1-2zQJ17-yM38';
+
+const DAYS = [
+  {key:'lunes',label:'LUN',icon:'🏋️',title:'Lunes AM · Tren inferior',sub:'Fuerza + Core · ~55 min · juntos'},
+  {key:'martes',label:'MAR',icon:'💪',title:'Martes · Tren superior',sub:'Fuerza + Circuito · ~50 min · juntos'},
+  {key:'miercoles',label:'MIÉ',icon:'🏊',title:'Miércoles · Natación',sub:'500 m · Técnica + Velocidad · ~35 min'},
+  {key:'jueves',label:'JUE',icon:'⚡',title:'Jueves AM · Potencia',sub:'Circuito Explosivo · ~50 min'},
+  {key:'viernes',label:'VIE',icon:'♻️',title:'Viernes · Recuperación',sub:'Activa · 25–35 min · juntos'},
+  {key:'sabado',label:'SÁB',icon:'⚽',title:'Sábado',sub:'Partido o entrenamiento libre'},
+  {key:'domingo',label:'DOM',icon:'😴',title:'Domingo',sub:'Descanso o sesión libre'},
+];
+
+// Default exercises for week 1
+const DEFAULT_DATA = {
+  lunes: [
+    {titulo:'Calentamiento · juntos',tipo:'calentamiento',badge:'8 MIN',ejercicios:[
+      {nombre:'Foam roller cuádriceps y glúteos',detalle:'2 min',player:'shared'},
+      {nombre:'Movilidad de cadera (mundo)',detalle:'2×10',player:'shared'},
+      {nombre:'Sentadilla con peso corporal lenta',detalle:'2×15',player:'shared'},
+    ]},
+    {titulo:'Bloque A · Fuerza',tipo:'fuerza',badge:'2 MIN DESC',ejercicios:[
+      {nombre:'Goblet Squat KB 24kg',detalle:'4×8',player:'him'},
+      {nombre:'Romanian Deadlift mancuernas',detalle:'4×8',player:'him'},
+      {nombre:'Bulgarian Split Squat',detalle:'3×10/lado',player:'him'},
+      {nombre:'Hip Thrust KB 24kg',detalle:'3×12',player:'him'},
+      {nombre:'Goblet Squat KB 12kg',detalle:'3×12',player:'her'},
+      {nombre:'Romanian Deadlift mancuernas 12kg',detalle:'3×12',player:'her'},
+      {nombre:'Bulgarian Split Squat (sin peso)',detalle:'3×12/lado',player:'her'},
+      {nombre:'Hip Thrust KB 16kg',detalle:'3×15',player:'her'},
+    ]},
+    {titulo:'Bloque B · AMRAP',tipo:'amrap',badge:'12 MIN',ejercicios:[
+      {nombre:'Swing KB 24kg',detalle:'15 reps',player:'him'},
+      {nombre:'Sentadilla con salto',detalle:'10 reps',player:'him'},
+      {nombre:'Rodillo abdominal',detalle:'10 reps',player:'him'},
+      {nombre:'Mountain climbers',detalle:'20 reps',player:'him'},
+      {nombre:'Swing KB 12kg',detalle:'15 reps',player:'her'},
+      {nombre:'Sentadilla con salto',detalle:'10 reps',player:'her'},
+      {nombre:'Dead bug',detalle:'10 reps/lado',player:'her'},
+      {nombre:'Mountain climbers',detalle:'20 reps',player:'her'},
+    ]},
+  ],
+  martes: [
+    {titulo:'Calentamiento · juntos',tipo:'calentamiento',badge:'8 MIN',ejercicios:[
+      {nombre:'Foam roller espalda dorsal',detalle:'2 min',player:'shared'},
+      {nombre:'Face pulls con goma',detalle:'2×15',player:'shared'},
+      {nombre:'Rotación de manguito con goma',detalle:'2×15',player:'shared'},
+    ]},
+    {titulo:'Bloque A · Fuerza superior',tipo:'fuerza',badge:'2 MIN DESC',ejercicios:[
+      {nombre:'Press banca mancuernas 24kg',detalle:'4×8',player:'him'},
+      {nombre:'Remo un brazo mancuerna 24kg',detalle:'4×8/lado',player:'him'},
+      {nombre:'Press militar de pie mancuernas',detalle:'3×10',player:'him'},
+      {nombre:'Remo invertido TRX',detalle:'3×12',player:'him'},
+      {nombre:'Press banca mancuernas 10kg',detalle:'3×12',player:'her'},
+      {nombre:'Remo un brazo mancuerna 12kg',detalle:'3×12/lado',player:'her'},
+      {nombre:'Press de hombros mancuernas 8kg',detalle:'3×12',player:'her'},
+      {nombre:'Remo invertido TRX',detalle:'3×15',player:'her'},
+    ]},
+    {titulo:'Bloque B · EMOM 12 min',tipo:'emom',badge:'12 MIN',ejercicios:[
+      {nombre:'Push-up explosivo · 10 reps',detalle:'min 1',player:'him'},
+      {nombre:'Remo TRX · 10 reps',detalle:'min 2',player:'him'},
+      {nombre:'Press con goma de pie · 12 reps',detalle:'min 3',player:'him'},
+      {nombre:'Curl martillo mancuernas · 10 reps',detalle:'min 4',player:'him'},
+      {nombre:'Push-up en rodillas · 12 reps',detalle:'min 1',player:'her'},
+      {nombre:'Remo TRX · 12 reps',detalle:'min 2',player:'her'},
+      {nombre:'Press con goma de pie · 15 reps',detalle:'min 3',player:'her'},
+      {nombre:'Curl con goma 6kg · 12 reps',detalle:'min 4',player:'her'},
+    ]},
+  ],
+  miercoles: [
+    {titulo:'Calentamiento · juntos',tipo:'calentamiento',badge:'100 M',ejercicios:[
+      {nombre:'Crol suave',detalle:'4 largos',player:'shared'},
+    ]},
+    {titulo:'Técnica · juntos',tipo:'tecnica',badge:'150 M',ejercicios:[
+      {nombre:'Patada de crol con tabla',detalle:'2 largos',player:'shared'},
+      {nombre:'Un brazo — derecho',detalle:'1 largo',player:'shared'},
+      {nombre:'Un brazo — izquierdo',detalle:'1 largo',player:'shared'},
+      {nombre:'Crol con pausa catch-up',detalle:'2 largos',player:'shared'},
+    ]},
+    {titulo:'Velocidad',tipo:'amrap',badge:'200 M',ejercicios:[
+      {nombre:'Sprint 25m',detalle:'×8 series',player:'him'},
+      {nombre:'Sprint 25m',detalle:'×6 series',player:'her'},
+    ]},
+    {titulo:'Vuelta a la calma · juntos',tipo:'rec',badge:'50 M',ejercicios:[
+      {nombre:'Crol muy suave o espalda',detalle:'2 largos',player:'shared'},
+    ]},
+  ],
+  jueves: [
+    {titulo:'Calentamiento · juntos',tipo:'calentamiento',badge:'10 MIN',ejercicios:[
+      {nombre:'Trote en el lugar',detalle:'3 min',player:'shared'},
+      {nombre:'Skipping + talones al glúteo',detalle:'2 min',player:'shared'},
+      {nombre:'Sentadilla con salto sin peso',detalle:'10 reps',player:'shared'},
+      {nombre:'Lanzamiento pelota medicinal al piso',detalle:'10 reps',player:'shared'},
+    ]},
+    {titulo:'Bloque A · Potencia',tipo:'fuerza',badge:'90 SEG DESC',ejercicios:[
+      {nombre:'Swing KB 24kg',detalle:'4×8',player:'him'},
+      {nombre:'Lanzamiento pelota medicinal al piso',detalle:'4×8',player:'him'},
+      {nombre:'Step-up explosivo al banco',detalle:'3×6/lado',player:'him'},
+      {nombre:'Sentadilla con salto KB 12kg',detalle:'3×6',player:'him'},
+      {nombre:'Swing KB 12kg',detalle:'4×10',player:'her'},
+      {nombre:'Lanzamiento pelota medicinal al piso',detalle:'3×8',player:'her'},
+      {nombre:'Step-up explosivo al banco (sin peso)',detalle:'3×8/lado',player:'her'},
+      {nombre:'Sentadilla con salto sin peso',detalle:'3×8',player:'her'},
+    ]},
+    {titulo:'Bloque B · Tabata · juntos',tipo:'tabata',badge:'8 MIN 🔥',ejercicios:[
+      {nombre:'Lanzamiento pelota contra pared · 20 seg × 8',detalle:'4 min',player:'shared'},
+      {nombre:'Burpee con salto · 20 seg × 8',detalle:'4 min',player:'shared'},
+    ]},
+  ],
+  viernes: [
+    {titulo:'Recuperación · juntos',tipo:'rec',badge:'25 MIN',ejercicios:[
+      {nombre:'Foam roller completo',detalle:'8 min',player:'shared'},
+      {nombre:'Pistola masajes isquios y pantorrillas',detalle:'5 min',player:'shared'},
+      {nombre:'Estiramiento cadera (paloma)',detalle:'2×60 seg/lado',player:'shared'},
+      {nombre:'Respiración diafragmática',detalle:'5 min',player:'shared'},
+      {nombre:'Gato-vaca',detalle:'2×10',player:'shared'},
+      {nombre:'Rotación torácica sentado',detalle:'2×10/lado',player:'shared'},
+      {nombre:"Child's pose con apertura lateral",detalle:'2×30 seg',player:'shared'},
+    ]},
+  ],
+  sabado: [
+    {titulo:'Post-partido · juntos',tipo:'rec',badge:'OPCIONAL',ejercicios:[
+      {nombre:'Foam roller piernas',detalle:'5 min',player:'shared'},
+      {nombre:'Estiramiento isquios y pantorrillas',detalle:'2 min',player:'shared'},
+      {nombre:'Eccentric heel drops (fascitis Asier)',detalle:'3×15',player:'shared'},
+    ]},
+    {titulo:'Sesión libre',tipo:'fuerza',badge:'LIBRE',ejercicios:[]},
+  ],
+  domingo: [
+    {titulo:'Movilidad · opcional',tipo:'rec',badge:'OPCIONAL',ejercicios:[
+      {nombre:'Foam roller cuerpo completo',detalle:'10 min',player:'shared'},
+      {nombre:'Estiramiento global',detalle:'10 min',player:'shared'},
+    ]},
+    {titulo:'Sesión libre',tipo:'fuerza',badge:'LIBRE',ejercicios:[]},
+  ],
+};
+
+// STATE
 let currentPlayer = 'him';
+let currentWeek = null;
+let currentDay = 'lunes';
+let weeks = [];
+let dbData = {}; // { bloqueId: { bloque, ejercicios } }
+let modalMode = 'edit';
 let modalTarget = null;
-let modalMode = 'edit'; // 'edit' or 'add'
-let addTargetListId = null;
-
-// ---- PLAYER ----
-function setPlayer(player, tab) {
-  currentPlayer = player;
-  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  const p = document.getElementById('mainPanels');
-  p.classList.remove('sv-him','sv-her');
-  p.classList.add('sv-' + player);
-  document.getElementById('pFill').classList.toggle('her', player==='her');
-  document.getElementById('pName').textContent = player==='him' ? 'Asier' : 'Ella';
-  updateProgress();
-  renderAmrapHistory();
-}
-
-// ---- DAY ----
-function switchDay(day, pill) {
-  document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  pill.classList.add('active');
-  document.querySelector(`.panel[data-day="${day}"]`).classList.add('active');
-  currentDay = day;
-  updateProgress();
-}
-
-// ---- BLOCK TOGGLE ----
-function tb(hd) { hd.parentElement.classList.toggle('open'); }
-
-// ---- EXERCISE DONE ----
-function toggleDone(row) {
-  if (row.querySelector('input, button:not(.ex-edit-btn):not(.ex-del-btn)')) return;
-  row.classList.toggle('done');
-  row.querySelector('.ex-chk').textContent = row.classList.contains('done') ? '✓' : '';
-  updateProgress();
-}
-
-// ---- EDIT TOGGLE (per block) ----
-function toggleEdit(e, btn) {
-  e.stopPropagation();
-  const block = btn.closest('.block');
-  block.classList.toggle('edit-active');
-  btn.classList.toggle('on');
-  btn.textContent = block.classList.contains('edit-active') ? '✓ Listo' : '✏️ Editar';
-  // Force show/hide actions in shared sections too
-  const isActive = block.classList.contains('edit-active');
-  block.querySelectorAll('.shared .ex-actions, .him-only .ex-actions, .her-only .ex-actions').forEach(a => {
-    a.style.display = isActive ? 'flex' : '';
-  });
-  block.querySelectorAll('.add-ex-btn').forEach(b => {
-    b.style.display = isActive ? 'block' : '';
-  });
-}
-
-// ---- EDIT EXERCISE ----
-function editEx(e, btn) {
-  e.stopPropagation();
-  const row = btn.closest('.ex-row');
-  modalTarget = row;
-  modalMode = 'edit';
-  document.getElementById('modalTitle').textContent = 'Editar ejercicio';
-  document.getElementById('modalName').value = row.querySelector('.ex-name-text').textContent;
-  document.getElementById('modalDet').value = row.querySelector('.ex-det-text') ? row.querySelector('.ex-det-text').textContent : '';
-  document.getElementById('modalSave').onclick = saveEdit;
-  openModal();
-}
-
-function saveEdit() {
-  if (!modalTarget) return;
-  const name = document.getElementById('modalName').value.trim();
-  const det = document.getElementById('modalDet').value.trim();
-  if (!name) return;
-  modalTarget.querySelector('.ex-name-text').textContent = name;
-  let detEl = modalTarget.querySelector('.ex-det-text');
-  if (det) {
-    if (!detEl) { detEl = document.createElement('div'); detEl.className = 'ex-det-text'; modalTarget.querySelector('.ex-content').appendChild(detEl); }
-    detEl.textContent = det;
-  } else if (detEl) { detEl.textContent = ''; }
-  closeModal();
-}
-
-// ---- DELETE EXERCISE ----
-function delEx(e, btn) {
-  e.stopPropagation();
-  const row = btn.closest('.ex-row');
-  row.style.transition = 'opacity 0.2s, max-height 0.2s';
-  row.style.opacity = '0';
-  setTimeout(() => { row.remove(); updateProgress(); }, 200);
-}
-
-// ---- ADD EXERCISE ----
-function addEx(btn, listId) {
-  modalMode = 'add';
-  addTargetListId = listId;
-  document.getElementById('modalTitle').textContent = 'Añadir ejercicio';
-  document.getElementById('modalName').value = '';
-  document.getElementById('modalDet').value = '';
-  document.getElementById('modalSave').onclick = saveAdd;
-  openModal();
-}
-
-function saveAdd() {
-  const name = document.getElementById('modalName').value.trim();
-  const det = document.getElementById('modalDet').value.trim();
-  if (!name) return;
-  const list = document.getElementById('ex-' + addTargetListId);
-  if (!list) return;
-  const row = document.createElement('div');
-  row.className = 'ex-row';
-  row.onclick = function(){ toggleDone(this); };
-  row.innerHTML = `<div class="ex-chk"></div><div class="ex-content"><div class="ex-name-text">${name}</div>${det ? `<div class="ex-det-text">${det}</div>` : ''}</div><div class="ex-actions"><button class="ex-edit-btn" onclick="editEx(event,this)">✏️</button><button class="ex-del-btn" onclick="delEx(event,this)">✕</button></div>`;
-  list.appendChild(row);
-  closeModal();
-  updateProgress();
-}
-
-// ---- MODAL ----
-function openModal() {
-  document.getElementById('modalOverlay').classList.add('open');
-  setTimeout(() => document.getElementById('modalName').focus(), 300);
-}
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  modalTarget = null;
-}
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// ---- PROGRESS ----
-function updateProgress() {
-  const panel = document.querySelector(`.panel[data-day="${currentDay}"]`);
-  const sharedRows = [...panel.querySelectorAll('.shared .ex-row')];
-  const pClass = currentPlayer==='him' ? '.him-only' : '.her-only';
-  const playerRows = [...panel.querySelectorAll(pClass + ' .ex-row')];
-  const all = sharedRows.length + playerRows.length;
-  const done = [...sharedRows,...playerRows].filter(r=>r.classList.contains('done')).length;
-  document.getElementById('pText').textContent = `${done} / ${all}`;
-  document.getElementById('pFill').style.width = all>0 ? (done/all*100)+'%' : '0%';
-}
-
-function resetDay() {
-  const panel = document.querySelector(`.panel[data-day="${currentDay}"]`);
-  panel.querySelectorAll('.ex-row').forEach(r => {
-    r.classList.remove('done');
-    r.querySelector('.ex-chk').textContent = '';
-  });
-  updateProgress();
-}
+let modalBloqueId = null;
+let editModeBlocks = new Set();
 
 // ---- SUPABASE ----
-const SUPABASE_URL = 'https://wovnsrwlqgwmfixpvlvi.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indvdm5zcndscWd3bWZpeHB2bHZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MzQyNjksImV4cCI6MjA5MjQxMDI2OX0.4PUK1r8xPSgl5vRHt-NCA7IUg4tNO_1-2zQJ17-yM38';
-
-async function sbFetch(path, options = {}) {
+async function sb(path, options={}) {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=representation',
-        ...options.headers
-      },
+    const res = await fetch(`${SB_URL}/rest/v1/${path}`, {
+      headers:{'apikey':SB_KEY,'Authorization':`Bearer ${SB_KEY}`,'Content-Type':'application/json','Prefer':'return=representation',...(options.headers||{})},
       ...options
     });
-    if (!res.ok) return null;
-    try { return await res.json(); } catch { return null; }
-  } catch(e) { return null; }
+    if(!res.ok) return null;
+    try{return await res.json();}catch{return null;}
+  } catch{return null;}
 }
 
-// ---- AMRAP HISTORY ----
-function getWeekLabel() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 1);
-  const week = Math.ceil(((now - start) / 86400000 + start.getDay() + 1) / 7);
-  return `Sem ${week} · ${now.getFullYear()}`;
+function showSync() {
+  const el = document.getElementById('syncIndicator');
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2000);
 }
 
-async function saveAmrap(day, player) {
-  const input = document.getElementById(`amrap-input-${day}-${player}`);
-  const val = parseInt(input.value);
-  if (isNaN(val) || val < 0) return;
+// ---- INIT ----
+async function init() {
+  await loadWeeks();
+  renderWeekSelector();
+  renderDayStrip();
+  if(currentWeek) await loadDay();
+}
 
-  const btn = input.nextElementSibling;
-  btn.textContent = '...';
-  btn.disabled = true;
-
-  const week = getWeekLabel();
-
-  // Check if entry exists for this week
-  const existing = await sbFetch(`amrap_history?player=eq.${player}&day=eq.${day}&week_label=eq.${encodeURIComponent(week)}&select=id`);
-
-  if (existing && existing.length > 0) {
-    await sbFetch(`amrap_history?id=eq.${existing[0].id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ score: val })
-    });
+async function loadWeeks() {
+  const data = await sb('semanas?order=numero.asc&select=*');
+  if(data && data.length > 0) {
+    weeks = data;
+    currentWeek = weeks[0];
   } else {
-    await sbFetch('amrap_history', {
-      method: 'POST',
-      body: JSON.stringify({ player, day, week_label: week, score: val })
-    });
-  }
-
-  input.value = '';
-  btn.textContent = 'Guardar';
-  btn.disabled = false;
-  renderAmrapHistory();
-}
-
-async function renderAmrapHistory() {
-  for (const day of ['lunes']) {
-    for (const player of ['him','her']) {
-      const el = document.getElementById(`amrap-hist-${day}-${player}`);
-      if (!el) continue;
-
-      el.innerHTML = '<div class="no-history">Cargando...</div>';
-
-      const data = await sbFetch(`amrap_history?player=eq.${player}&day=eq.${day}&order=created_at.desc&limit=8&select=week_label,score`);
-
-      if (!data || data.length === 0) {
-        el.innerHTML = '<div class="no-history">Aún no hay registros</div>';
-        continue;
-      }
-
-      const best = Math.max(...data.map(h => h.score));
-      el.innerHTML = '<div class="amrap-history-title">Historial compartido 🌐</div>' +
-        data.map((h, i) => {
-          const isBest = h.score === best;
-          const trend = i < data.length - 1 ? (h.score > data[i+1].score ? '↑' : h.score < data[i+1].score ? '↓' : '→') : '';
-          return `<div class="history-entry">
-            <span class="history-week">${h.week_label} ${trend}</span>
-            <span class="history-score ${player==='her'?'her':''}">${h.score} rondas ${isBest?'🏆':''}</span>
-          </div>`;
-        }).join('');
+    // Create first week
+    const w = await sb('semanas', {method:'POST', body:JSON.stringify({numero:1, nombre:'Semana 1'})});
+    if(w && w.length > 0) {
+      weeks = [w[0]];
+      currentWeek = w[0];
+      await seedWeek(w[0].id);
     }
   }
 }
 
-renderAmrapHistory();
-updateProgress();
+async function seedWeek(semanaId) {
+  for(const dayKey of Object.keys(DEFAULT_DATA)) {
+    // Create dia
+    const dayInfo = DAYS.find(d=>d.key===dayKey);
+    const diaRes = await sb('dias', {method:'POST', body:JSON.stringify({semana_id:semanaId, dia:dayKey, titulo:dayInfo.title, subtitulo:dayInfo.sub})});
+    if(!diaRes||!diaRes[0]) continue;
+    const diaId = diaRes[0].id;
+
+    for(let bi=0; bi<DEFAULT_DATA[dayKey].length; bi++) {
+      const b = DEFAULT_DATA[dayKey][bi];
+      const bRes = await sb('bloques', {method:'POST', body:JSON.stringify({dia_id:diaId, titulo:b.titulo, tipo:b.tipo, badge:b.badge, orden:bi})});
+      if(!bRes||!bRes[0]) continue;
+      const bId = bRes[0].id;
+
+      for(let ei=0; ei<b.ejercicios.length; ei++) {
+        const e = b.ejercicios[ei];
+        await sb('ejercicios', {method:'POST', body:JSON.stringify({bloque_id:bId, player:e.player, nombre:e.nombre, detalle:e.detalle, orden:ei})});
+      }
+    }
+  }
+}
+
+async function addWeek() {
+  const num = weeks.length + 1;
+  const nombre = `Semana ${num}`;
+  const w = await sb('semanas', {method:'POST', body:JSON.stringify({numero:num, nombre})});
+  if(w && w[0]) {
+    weeks.push(w[0]);
+    currentWeek = w[0];
+    await seedWeek(w[0].id);
+    renderWeekSelector();
+    await loadDay();
+  }
+}
+
+async function saveWeekName() {
+  const name = document.getElementById('weekNameInput').value.trim();
+  if(!name || !currentWeek) return;
+  await sb(`semanas?id=eq.${currentWeek.id}`, {method:'PATCH', body:JSON.stringify({nombre:name})});
+  currentWeek.nombre = name;
+  weeks = weeks.map(w=>w.id===currentWeek.id ? {...w, nombre:name} : w);
+  renderWeekSelector();
+  showSync();
+  document.getElementById('weekNameEdit').style.display = 'none';
+}
+
+// ---- LOAD DAY ----
+async function loadDay() {
+  const content = document.getElementById('mainContent');
+  content.className = `content sv-${currentPlayer}`;
+  content.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Cargando...</div>';
+
+  if(!currentWeek) return;
+
+  // Get dia
+  const dias = await sb(`dias?semana_id=eq.${currentWeek.id}&dia=eq.${currentDay}&select=*`);
+  if(!dias || dias.length === 0) {
+    content.innerHTML = renderEmptyDay();
+    return;
+  }
+  const dia = dias[0];
+
+  // Get bloques
+  const bloques = await sb(`bloques?dia_id=eq.${dia.id}&order=orden.asc&select=*`);
+  if(!bloques || bloques.length === 0) {
+    content.innerHTML = renderEmptyDay();
+    return;
+  }
+
+  // Get all ejercicios for this day's blocks
+  const bloqueIds = bloques.map(b=>b.id);
+  const ejercicios = await sb(`ejercicios?bloque_id=in.(${bloqueIds.join(',')})&order=orden.asc&select=*`);
+
+  // Render
+  let html = renderDayHeader(dia);
+
+  if(currentDay === 'jueves') {
+    html += `<div class="warn">⚠️ Asier: hacelo con al menos 6 horas antes del futsal nocturno</div>`;
+  }
+
+  for(const bloque of bloques) {
+    const exs = (ejercicios||[]).filter(e=>e.bloque_id===bloque.id);
+    html += renderBlock(bloque, exs);
+  }
+
+  // Add block button
+  html += `<button style="width:100%;padding:10px;background:transparent;border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:12px;cursor:pointer;margin-bottom:12px" onclick="addBlock('${dia.id}')">+ Añadir bloque</button>`;
+
+  content.innerHTML = html;
+  updateProgress();
+}
+
+function renderDayHeader(dia) {
+  const dayInfo = DAYS.find(d=>d.key===currentDay)||{icon:'📅',title:dia.titulo,sub:dia.subtitulo};
+  return `<div class="day-header">
+    <div class="day-header-icon">${dayInfo.icon}</div>
+    <div style="flex:1">
+      <div class="day-header-title">${dia.titulo||dayInfo.title}</div>
+      <div class="day-header-sub">${dia.subtitulo||dayInfo.sub}</div>
+    </div>
+  </div>`;
+}
+
+function renderEmptyDay() {
+  return `<div class="empty-day">
+    <div class="empty-day-icon">📝</div>
+    <div class="empty-day-text">Este día está vacío para esta semana</div>
+    <button class="empty-day-btn" onclick="initDay()">+ Crear día desde plantilla</button>
+  </div>`;
+}
+
+function getBadgeClass(tipo) {
+  const map = {fuerza:'b-str',amrap:'b-amr',emom:'b-emo',tabata:'b-tab',calentamiento:'b-wrm',rec:'b-rec',tecnica:'b-str'};
+  return map[tipo]||'b-str';
+}
+function getDotClass(tipo) {
+  const map = {fuerza:'dot-a',amrap:'dot-b',emom:'dot-b',tabata:'dot-b',calentamiento:'dot-w',rec:'dot-r',tecnica:'dot-a'};
+  return map[tipo]||'dot-a';
+}
+
+function renderBlock(bloque, ejercicios) {
+  const badgeClass = getBadgeClass(bloque.tipo);
+  const dotClass = getDotClass(bloque.tipo);
+  const isOpen = bloque.tipo === 'fuerza' || bloque.tipo === 'calentamiento' || bloque.tipo === 'rec' || bloque.tipo === 'tecnica';
+  const isFuerza = bloque.tipo === 'fuerza';
+  const isAmrap = bloque.tipo === 'amrap';
+
+  const himExs = ejercicios.filter(e=>e.player==='him'||e.player==='shared');
+  const herExs = ejercicios.filter(e=>e.player==='her'||e.player==='shared');
+  const sharedExs = ejercicios.filter(e=>e.player==='shared');
+  const himOnlyExs = ejercicios.filter(e=>e.player==='him');
+  const herOnlyExs = ejercicios.filter(e=>e.player==='her');
+
+  let exHtml = '';
+
+  if(sharedExs.length > 0) {
+    exHtml += `<div class="shared">`;
+    for(const ex of sharedExs) exHtml += renderEx(ex, isFuerza);
+    exHtml += `<button class="add-ex-btn" onclick="openAddEx('${bloque.id}','shared')">+ Añadir ejercicio</button>`;
+    exHtml += `</div>`;
+  }
+
+  if(himOnlyExs.length > 0 || sharedExs.length === 0) {
+    exHtml += `<div class="him-only">`;
+    if(himOnlyExs.length > 0) exHtml += `<div class="info info-him">👨 <strong>Asier</strong></div>`;
+    for(const ex of himOnlyExs) exHtml += renderEx(ex, isFuerza);
+    exHtml += `<button class="add-ex-btn" onclick="openAddEx('${bloque.id}','him')">+ Añadir ejercicio</button>`;
+    exHtml += `</div>`;
+  }
+
+  if(herOnlyExs.length > 0 || sharedExs.length === 0) {
+    exHtml += `<div class="her-only">`;
+    if(herOnlyExs.length > 0) exHtml += `<div class="info info-her">👩 <strong>Ella</strong></div>`;
+    for(const ex of herOnlyExs) exHtml += renderEx(ex, isFuerza);
+    exHtml += `<button class="add-ex-btn" onclick="openAddEx('${bloque.id}','her')">+ Añadir ejercicio</button>`;
+    exHtml += `</div>`;
+  }
+
+  if(isAmrap) {
+    exHtml += renderAmrap(bloque.id);
+  }
+
+  return `<div class="block ${isOpen?'open':''}" id="block-${bloque.id}">
+    <div class="block-hd" onclick="tb(this)">
+      <div class="bdot ${dotClass}"></div>
+      <div class="btitle">${bloque.titulo}</div>
+      <span class="bbadge ${badgeClass}">${bloque.badge}</span>
+      <button class="edit-toggle" onclick="toggleEdit(event,this,'${bloque.id}')">✏️ Editar</button>
+      <span class="chev">▾</span>
+    </div>
+    <div class="block-body">${exHtml}</div>
+  </div>`;
+}
+
+function renderEx(ex, showLog=false) {
+  const logBtn = showLog ? `<button class="ex-log-btn" onclick="openSeriesLog(event,'${ex.id}','${ex.nombre.replace(/'/g,"\\'")}')">📊</button>` : '';
+  return `<div class="ex-row" id="ex-${ex.id}" onclick="toggleDone(this)">
+    <div class="ex-chk"></div>
+    <div class="ex-content">
+      <div class="ex-name-text">${ex.nombre}</div>
+      ${ex.detalle?`<div class="ex-det-text">${ex.detalle}</div>`:''}
+    </div>
+    ${logBtn}
+    <div class="ex-actions">
+      <button class="ex-edit-btn" onclick="openEditEx(event,'${ex.id}','${ex.nombre.replace(/'/g,"\\'")}','${(ex.detalle||'').replace(/'/g,"\\'")}')">✏️</button>
+      <button class="ex-del-btn" onclick="deleteEx(event,'${ex.id}')">✕</button>
+    </div>
+  </div>`;
+}
+
+function renderAmrap(bloqueId) {
+  return `<div class="amrap-block">
+    <div class="amrap-title">🎯 Historial AMRAP</div>
+    <div class="amrap-row">
+      <label>Rondas esta semana</label>
+      <input type="number" min="0" max="20" placeholder="0" id="amrap-${bloqueId}">
+      <button class="save-amrap-btn" onclick="saveAmrap('${bloqueId}')">Guardar</button>
+    </div>
+    <div id="amrap-hist-${bloqueId}"><div style="font-size:12px;color:var(--muted)">Cargando historial...</div></div>
+  </div>`;
+}
+
+// ---- SERIES LOG ----
+async function openSeriesLog(e, exId, exNombre) {
+  e.stopPropagation();
+  modalMode = 'series';
+  modalTarget = exId;
+  document.getElementById('modalTitle').textContent = exNombre;
+  document.getElementById('modalPlayerField').style.display = 'none';
+
+  // Load existing series for this week
+  const semNum = currentWeek ? currentWeek.numero : 1;
+  const existing = await sb(`series_log?ejercicio_id=eq.${exId}&player=eq.${currentPlayer}&semana_num=eq.${semNum}&order=numero_serie.asc&select=*`);
+
+  const series = (existing && existing.length > 0) ? existing : [{numero_serie:1,kg:0,reps:0},{numero_serie:2,kg:0,reps:0},{numero_serie:3,kg:0,reps:0}];
+
+  let seriesHtml = `<div class="series-panel">
+    <div class="series-panel-title">
+      <span>Series · ${currentPlayer==='him'?'Asier':'Ella'} · Sem ${semNum}</span>
+    </div>`;
+
+  for(const s of series) {
+    seriesHtml += `<div class="series-row">
+      <div class="series-num">${s.numero_serie}</div>
+      <input type="number" class="series-input ${currentPlayer==='her'?'her-focus':''}" placeholder="kg" value="${s.kg||''}" data-serie="${s.numero_serie}" data-field="kg" step="0.5" min="0">
+      <span class="series-unit">kg</span>
+      <input type="number" class="series-input ${currentPlayer==='her'?'her-focus':''}" placeholder="reps" value="${s.reps||''}" data-serie="${s.numero_serie}" data-field="reps" min="0">
+      <span class="series-unit">reps</span>
+    </div>`;
+  }
+
+  seriesHtml += `<button class="add-serie-btn" onclick="addSerieRow(this)">+ Serie</button>`;
+  seriesHtml += `<button class="save-series-btn ${currentPlayer==='her'?'her':''}" onclick="saveSeries('${exId}',${semNum})">💾 Guardar series</button>`;
+
+  // History
+  const allHistory = await sb(`series_log?ejercicio_id=eq.${exId}&player=eq.${currentPlayer}&order=semana_num.desc,numero_serie.asc&select=*`);
+  if(allHistory && allHistory.length > 0) {
+    const bySem = {};
+    for(const r of allHistory) {
+      if(!bySem[r.semana_num]) bySem[r.semana_num]=[];
+      bySem[r.semana_num].push(r);
+    }
+    seriesHtml += `<div class="series-history"><div class="series-history-title">Historial</div>`;
+    for(const [sem, rows] of Object.entries(bySem).sort((a,b)=>b[0]-a[0]).slice(0,4)) {
+      const maxKg = Math.max(...rows.map(r=>r.kg||0));
+      const totalReps = rows.reduce((s,r)=>s+(r.reps||0),0);
+      seriesHtml += `<div class="sh-row">
+        <span class="sh-label">Sem ${sem} · ${rows.length} series</span>
+        <span class="sh-val ${currentPlayer==='her'?'her':''}">${maxKg}kg max · ${totalReps} reps</span>
+      </div>`;
+    }
+    seriesHtml += `</div>`;
+  }
+
+  seriesHtml += `</div>`;
+
+  document.getElementById('modalName').parentElement.style.display = 'none';
+  document.getElementById('modalDet').parentElement.style.display = 'none';
+  document.getElementById('modalSaveBtn').style.display = 'none';
+
+  // Inject into modal
+  const modal = document.querySelector('.modal');
+  let seriesContainer = modal.querySelector('.series-container');
+  if(!seriesContainer) {
+    seriesContainer = document.createElement('div');
+    seriesContainer.className = 'series-container';
+    modal.insertBefore(seriesContainer, modal.querySelector('.modal-btns'));
+  }
+  seriesContainer.innerHTML = seriesHtml;
+
+  openModal();
+}
+
+function addSerieRow(btn) {
+  const panel = btn.closest('.series-panel');
+  const rows = panel.querySelectorAll('.series-row');
+  const nextNum = rows.length + 1;
+  const row = document.createElement('div');
+  row.className = 'series-row';
+  row.innerHTML = `<div class="series-num">${nextNum}</div>
+    <input type="number" class="series-input ${currentPlayer==='her'?'her-focus':''}" placeholder="kg" data-serie="${nextNum}" data-field="kg" step="0.5" min="0">
+    <span class="series-unit">kg</span>
+    <input type="number" class="series-input ${currentPlayer==='her'?'her-focus':''}" placeholder="reps" data-serie="${nextNum}" data-field="reps" min="0">
+    <span class="series-unit">reps</span>`;
+  btn.parentElement.insertBefore(row, btn);
+}
+
+async function saveSeries(exId, semNum) {
+  const panel = document.querySelector('.series-panel');
+  const rows = panel.querySelectorAll('.series-row');
+  const saveBtn = panel.querySelector('.save-series-btn');
+  saveBtn.textContent = '...';
+
+  // Delete existing for this week
+  await sb(`series_log?ejercicio_id=eq.${exId}&player=eq.${currentPlayer}&semana_num=eq.${semNum}`, {method:'DELETE'});
+
+  for(const row of rows) {
+    const serie = row.querySelector('[data-field="kg"]').dataset.serie;
+    const kg = parseFloat(row.querySelector('[data-field="kg"]').value)||0;
+    const reps = parseInt(row.querySelector('[data-field="reps"]').value)||0;
+    if(kg > 0 || reps > 0) {
+      await sb('series_log', {method:'POST', body:JSON.stringify({ejercicio_id:exId, player:currentPlayer, semana_num:semNum, numero_serie:parseInt(serie), kg, reps})});
+    }
+  }
+
+  saveBtn.textContent = '✓ Guardado';
+  showSync();
+  setTimeout(()=>closeModal(), 800);
+}
+
+// ---- AMRAP ----
+async function saveAmrap(bloqueId) {
+  const input = document.getElementById(`amrap-${bloqueId}`);
+  const val = parseInt(input.value);
+  if(isNaN(val)||val<0) return;
+  const week = `Sem ${currentWeek?currentWeek.numero:1} · ${new Date().getFullYear()}`;
+  const existing = await sb(`amrap_history?player=eq.${currentPlayer}&day=eq.${currentDay}&week_label=eq.${encodeURIComponent(week)}&select=id`);
+  if(existing && existing.length>0) {
+    await sb(`amrap_history?id=eq.${existing[0].id}`, {method:'PATCH', body:JSON.stringify({score:val})});
+  } else {
+    await sb('amrap_history', {method:'POST', body:JSON.stringify({player:currentPlayer, day:currentDay, week_label:week, score:val})});
+  }
+  input.value='';
+  showSync();
+  loadAmrapHistory(bloqueId);
+}
+
+async function loadAmrapHistory(bloqueId) {
+  const el = document.getElementById(`amrap-hist-${bloqueId}`);
+  if(!el) return;
+  const data = await sb(`amrap_history?player=eq.${currentPlayer}&day=eq.${currentDay}&order=created_at.desc&limit=6&select=week_label,score`);
+  if(!data||data.length===0){el.innerHTML='<div style="font-size:12px;color:var(--muted)">Aún no hay registros</div>';return;}
+  const best = Math.max(...data.map(h=>h.score));
+  el.innerHTML = data.map((h,i)=>{
+    const trend = i<data.length-1?(h.score>data[i+1].score?'↑':h.score<data[i+1].score?'↓':'→'):'';
+    return `<div class="sh-row"><span class="sh-label">${h.week_label} ${trend}</span><span class="sh-val ${currentPlayer==='her'?'her':''}">${h.score} rondas ${h.score===best?'🏆':''}</span></div>`;
+  }).join('');
+}
+
+// ---- EDIT / ADD EXERCISES ----
+function openAddEx(bloqueId, player) {
+  modalMode = 'add';
+  modalBloqueId = bloqueId;
+  document.getElementById('modalTitle').textContent = 'Añadir ejercicio';
+  document.getElementById('modalName').value='';
+  document.getElementById('modalDet').value='';
+  document.getElementById('modalPlayer').value = player;
+  showModalFields();
+  document.getElementById('modalSaveBtn').onclick = saveAddEx;
+  openModal();
+}
+
+async function saveAddEx() {
+  const nombre = document.getElementById('modalName').value.trim();
+  const detalle = document.getElementById('modalDet').value.trim();
+  const player = document.getElementById('modalPlayer').value;
+  if(!nombre) return;
+
+  // Get current max orden
+  const exs = await sb(`ejercicios?bloque_id=eq.${modalBloqueId}&select=orden&order=orden.desc&limit=1`);
+  const orden = (exs && exs[0]) ? exs[0].orden + 1 : 0;
+
+  await sb('ejercicios', {method:'POST', body:JSON.stringify({bloque_id:modalBloqueId, player, nombre, detalle, orden})});
+  closeModal();
+  showSync();
+  await loadDay();
+}
+
+function openEditEx(e, exId, nombre, detalle) {
+  e.stopPropagation();
+  modalMode = 'edit';
+  modalTarget = exId;
+  document.getElementById('modalTitle').textContent = 'Editar ejercicio';
+  document.getElementById('modalName').value = nombre;
+  document.getElementById('modalDet').value = detalle;
+  document.getElementById('modalPlayerField').style.display = 'none';
+  showModalFields();
+  document.getElementById('modalSaveBtn').onclick = saveEditEx;
+  openModal();
+}
+
+async function saveEditEx() {
+  const nombre = document.getElementById('modalName').value.trim();
+  const detalle = document.getElementById('modalDet').value.trim();
+  if(!nombre) return;
+  await sb(`ejercicios?id=eq.${modalTarget}`, {method:'PATCH', body:JSON.stringify({nombre, detalle})});
+  closeModal();
+  showSync();
+  await loadDay();
+}
+
+async function deleteEx(e, exId) {
+  e.stopPropagation();
+  await sb(`ejercicios?id=eq.${exId}`, {method:'DELETE'});
+  showSync();
+  await loadDay();
+}
+
+async function addBlock(diaId) {
+  const titulo = prompt('Nombre del bloque:');
+  if(!titulo) return;
+  await sb('bloques', {method:'POST', body:JSON.stringify({dia_id:diaId, titulo, tipo:'fuerza', badge:'', orden:99})});
+  showSync();
+  await loadDay();
+}
+
+async function initDay() {
+  if(!currentWeek) return;
+  // Create dia from default
+  const dayInfo = DAYS.find(d=>d.key===currentDay);
+  const diaRes = await sb('dias', {method:'POST', body:JSON.stringify({semana_id:currentWeek.id, dia:currentDay, titulo:dayInfo.title, subtitulo:dayInfo.sub})});
+  if(!diaRes||!diaRes[0]) return;
+  const diaId = diaRes[0].id;
+  const defaultBlocks = DEFAULT_DATA[currentDay]||[];
+  for(let bi=0;bi<defaultBlocks.length;bi++){
+    const b = defaultBlocks[bi];
+    const bRes = await sb('bloques', {method:'POST', body:JSON.stringify({dia_id:diaId, titulo:b.titulo, tipo:b.tipo, badge:b.badge, orden:bi})});
+    if(!bRes||!bRes[0]) continue;
+    for(let ei=0;ei<b.ejercicios.length;ei++){
+      const ex=b.ejercicios[ei];
+      await sb('ejercicios',{method:'POST',body:JSON.stringify({bloque_id:bRes[0].id,player:ex.player,nombre:ex.nombre,detalle:ex.detalle,orden:ei})});
+    }
+  }
+  await loadDay();
+}
+
+// ---- UI ----
+function setPlayer(player, tab) {
+  currentPlayer = player;
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById('mainContent').className = `content sv-${player}`;
+  document.getElementById('pFill').classList.toggle('her', player==='her');
+  document.getElementById('pName').textContent = player==='him'?'Asier':'Ella';
+  updateProgress();
+  // Reload amrap histories
+  document.querySelectorAll('[id^="amrap-hist-"]').forEach(el=>{
+    const bloqueId = el.id.replace('amrap-hist-','');
+    loadAmrapHistory(bloqueId);
+  });
+}
+
+function renderWeekSelector() {
+  const el = document.getElementById('weekSelector');
+  el.innerHTML = weeks.map(w=>`<button class="week-btn ${currentWeek&&w.id===currentWeek.id?'active':''}" onclick="selectWeek('${w.id}',this)">${w.nombre}</button>`).join('');
+  el.innerHTML += `<button class="add-week-btn" onclick="addWeek()">+ Sem ${weeks.length+1}</button>`;
+  // Show name editor for current week
+  if(currentWeek) {
+    document.getElementById('weekNameInput').value = currentWeek.nombre;
+  }
+}
+
+async function selectWeek(id, btn) {
+  currentWeek = weeks.find(w=>w.id===id);
+  document.querySelectorAll('.week-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('weekNameInput').value = currentWeek.nombre;
+  document.getElementById('weekNameEdit').style.display = 'flex';
+  await loadDay();
+}
+
+function renderDayStrip() {
+  document.getElementById('dayStrip').innerHTML = DAYS.map(d=>
+    `<button class="day-btn ${d.key===currentDay?'active':''}" onclick="selectDay('${d.key}',this)">${d.label}</button>`
+  ).join('');
+}
+
+async function selectDay(day, btn) {
+  currentDay = day;
+  document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  await loadDay();
+}
+
+function tb(hd) { hd.parentElement.classList.toggle('open'); }
+
+function toggleEdit(e, btn, bloqueId) {
+  e.stopPropagation();
+  const block = document.getElementById(`block-${bloqueId}`);
+  block.classList.toggle('edit-active');
+  btn.classList.toggle('on');
+  btn.textContent = block.classList.contains('edit-active') ? '✓ Listo' : '✏️ Editar';
+  const isActive = block.classList.contains('edit-active');
+  block.querySelectorAll('.ex-actions').forEach(a=>a.style.display=isActive?'flex':'');
+  block.querySelectorAll('.add-ex-btn').forEach(b=>b.style.display=isActive?'block':'');
+}
+
+function toggleDone(row) {
+  if(row.tagName==='BUTTON') return;
+  row.classList.toggle('done');
+  row.querySelector('.ex-chk').textContent = row.classList.contains('done')?'✓':'';
+  updateProgress();
+}
+
+function updateProgress() {
+  const content = document.getElementById('mainContent');
+  const player = currentPlayer;
+  const sharedRows = [...content.querySelectorAll('.shared .ex-row')];
+  const playerRows = [...content.querySelectorAll(`.${player}-only .ex-row`)];
+  const all = sharedRows.length + playerRows.length;
+  const done = [...sharedRows,...playerRows].filter(r=>r.classList.contains('done')).length;
+  document.getElementById('pText').textContent = `${done} / ${all}`;
+  document.getElementById('pFill').style.width = all>0?(done/all*100)+'%':'0%';
+}
+
+function resetDay() {
+  document.querySelectorAll('#mainContent .ex-row').forEach(r=>{
+    r.classList.remove('done');
+    r.querySelector('.ex-chk').textContent='';
+  });
+  updateProgress();
+}
+
+// ---- MODAL ----
+function showModalFields() {
+  document.getElementById('modalName').parentElement.style.display='block';
+  document.getElementById('modalDet').parentElement.style.display='block';
+  document.getElementById('modalPlayerField').style.display='block';
+  document.getElementById('modalSaveBtn').style.display='block';
+  const sc = document.querySelector('.series-container');
+  if(sc) sc.innerHTML='';
+}
+
+function openModal() { document.getElementById('modalOverlay').classList.add('open'); }
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  showModalFields();
+  modalTarget=null;
+}
+document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ---- START ----
+init();
 </script>
 
 </body>
