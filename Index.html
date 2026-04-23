@@ -71,6 +71,9 @@ body{background:var(--bg);color:var(--text);font-family:'Barlow',sans-serif;min-
 .block.open .bbody{display:block}
 .etog{padding:3px 8px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:10px;font-family:'Barlow',sans-serif;cursor:pointer;transition:all 0.2s;flex-shrink:0}
 .etog.on{border-color:var(--him);color:var(--him);background:rgba(240,165,0,0.08)}
+.del-block-btn{padding:3px 8px;border-radius:100px;border:1px solid transparent;background:transparent;color:transparent;font-size:10px;font-family:'Barlow',sans-serif;cursor:pointer;transition:all 0.3s;flex-shrink:0;margin-left:auto}
+.block:hover .del-block-btn{color:rgba(240,96,96,0.4);border-color:rgba(240,96,96,0.2)}
+.del-block-btn:hover{color:var(--red)!important;border-color:var(--red)!important;background:rgba(240,96,96,0.08)!important}
 .exrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);transition:opacity 0.2s}
 .exrow:last-child{border-bottom:none;padding-bottom:0}
 .exrow:first-child{padding-top:0}
@@ -207,7 +210,18 @@ const DAYS = [
 
 // ===== 4 SEMANAS DE RUTINA =====
 
+
+// ===== 4 SEMANAS DE RUTINA =====
+// Cada semana usa patrones de movimiento completamente distintos
+
 const WEEKS_DATA = [
+
+// ══════════════════════════════════════
+// SEMANA 1 · FUERZA BASE
+// Empuje: press plano · Tirón: remo un brazo
+// Squat: goblet · Bisagra: RDL bilateral
+// Aislamiento: Arnold + curl martillo + press francés
+// ══════════════════════════════════════
 {
   nombre:'Semana 1 · Fuerza',
   lunes:[
@@ -216,10 +230,10 @@ const WEEKS_DATA = [
       {n:'Rotaciones hombro con goma',d:'2×15',p:'shared'},
       {n:'Push-up excéntrico 4 seg',d:'2×8',p:'shared'},
     ]},
-    {titulo:'Bloque A · Press plano + Remo un brazo',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+    {titulo:'Bloque A · Press plano + Remo un brazo KB',tipo:'fuerza',badge:'2 MIN DESC',exs:[
       {n:'Press banca mancuernas 24kg',d:'4×6',p:'him'},
       {n:'Remo un brazo KB 24kg',d:'4×6/lado',p:'him'},
-      {n:'Press militar de pie mancuernas 20kg',d:'3×6',p:'him'},
+      {n:'Press militar de pie mancuernas 20kg',d:'3×8',p:'him'},
       {n:'Remo al cuello con goma',d:'3×12',p:'him'},
       {n:'Press banca mancuernas 10kg',d:'4×8',p:'her'},
       {n:'Remo un brazo mancuerna 10kg',d:'4×8/lado',p:'her'},
@@ -229,10 +243,10 @@ const WEEKS_DATA = [
     {titulo:'Bloque B · Core + Cardio',tipo:'amrap',badge:'10 MIN',exs:[
       {n:'Rodillo abdominal',d:'3×8',p:'him'},
       {n:'Pelota medicinal slam',d:'3×10',p:'him'},
-      {n:'Comba 30s / 15s desc',d:'×5 rondas',p:'him'},
+      {n:'Comba 30s on / 15s off',d:'×5 rondas',p:'him'},
       {n:'Dead bug',d:'3×10/lado',p:'her'},
       {n:'Pelota medicinal slam',d:'3×8',p:'her'},
-      {n:'Comba 30s / 15s desc',d:'×4 rondas',p:'her'},
+      {n:'Comba 30s on / 15s off',d:'×4 rondas',p:'her'},
     ]},
   ],
   martes:[
@@ -241,7 +255,7 @@ const WEEKS_DATA = [
       {n:'Movilidad cadera (mundo)',d:'2×10',p:'shared'},
       {n:'Sentadilla goblet KB ligero',d:'2×15',p:'shared'},
     ]},
-    {titulo:'Bloque A · Goblet Squat + RDL + Split Squat',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+    {titulo:'Bloque A · Goblet Squat + RDL bilateral + Split Squat',tipo:'fuerza',badge:'2 MIN DESC',exs:[
       {n:'Goblet Squat KB 24kg',d:'4×6',p:'him'},
       {n:'Romanian Deadlift mancuernas 24kg',d:'4×6',p:'him'},
       {n:'Bulgarian Split Squat KB 16kg',d:'3×6/lado',p:'him'},
@@ -282,7 +296,7 @@ const WEEKS_DATA = [
       {n:'Sentadilla con salto sin peso',d:'2×8',p:'shared'},
       {n:'Hip hinge KB ligero',d:'2×10',p:'shared'},
     ]},
-    {titulo:'Bloque A · Swing + Step-up + Peso muerto',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Swing + Step-up banco + Peso muerto KB',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Swing KB 24kg explosivo',d:'4×8',p:'him'},
       {n:'Step-up explosivo banco KB 12kg',d:'4×6/lado',p:'him'},
       {n:'Sentadilla con salto KB 16kg',d:'3×5',p:'him'},
@@ -307,7 +321,7 @@ const WEEKS_DATA = [
       {n:'Face pulls con goma',d:'2×15',p:'shared'},
       {n:'Rotación manguito con goma',d:'2×15',p:'shared'},
     ]},
-    {titulo:'Bloque A · Arnold + Curl martillo + Press francés',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+    {titulo:'Bloque A · Arnold + Curl martillo + Press francés banco',tipo:'fuerza',badge:'2 MIN DESC',exs:[
       {n:'Press Arnold mancuernas 20kg',d:'4×8',p:'him'},
       {n:'Elevaciones laterales mancuernas 10kg',d:'4×12',p:'him'},
       {n:'Curl martillo mancuernas 16kg',d:'4×10',p:'him'},
@@ -335,6 +349,14 @@ const WEEKS_DATA = [
   ]}],
 },
 
+// ══════════════════════════════════════
+// SEMANA 2 · HIPERTROFIA
+// Empuje: press inclinado + aperturas + pullover
+// Tirón: remo prono banco (DIFERENTE al remo un brazo)
+// Squat: sentadilla frontal (DIFERENTE al goblet)
+// Bisagra: peso muerto una pierna (DIFERENTE al bilateral)
+// Aislamiento: skull crusher + curl predicador (DIFERENTE)
+// ══════════════════════════════════════
 {
   nombre:'Semana 2 · Hipertrofia',
   lunes:[
@@ -343,7 +365,7 @@ const WEEKS_DATA = [
       {n:'Band pull-apart goma',d:'3×15',p:'shared'},
       {n:'Push-up con pausa 2 seg arriba',d:'2×10',p:'shared'},
     ]},
-    {titulo:'Bloque A · Press inclinado + Remo prono + Apertura',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Press inclinado banco + Pullover + Aperturas',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Press inclinado banco mancuernas 22kg',d:'4×10',p:'him'},
       {n:'Remo prono banco mancuernas 20kg',d:'4×10',p:'him'},
       {n:'Apertura banco plano mancuernas 16kg',d:'3×12',p:'him'},
@@ -364,15 +386,15 @@ const WEEKS_DATA = [
       {n:'Sentadilla con pausa 3 seg abajo',d:'2×10',p:'shared'},
       {n:'Abductor goma caminando lateral',d:'2×10/lado',p:'shared'},
     ]},
-    {titulo:'Bloque A · Sentadilla frontal + Peso muerto una pierna + Zancada',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Sentadilla frontal + RDL una pierna + Zancada caminando',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Sentadilla frontal KB 24kg goblet',d:'4×10',p:'him'},
       {n:'Peso muerto una pierna KB 20kg',d:'4×8/lado',p:'him'},
       {n:'Zancada caminando mancuernas 16kg',d:'3×10/lado',p:'him'},
-      {n:'Hip Thrust KB 24kg con pausa',d:'3×12',p:'him'},
+      {n:'Hip Thrust KB 24kg con pausa arriba',d:'3×12',p:'him'},
       {n:'Sentadilla frontal KB 14kg goblet',d:'4×12',p:'her'},
       {n:'Peso muerto una pierna KB 12kg',d:'4×10/lado',p:'her'},
       {n:'Zancada caminando mancuernas 8kg',d:'3×12/lado',p:'her'},
-      {n:'Hip Thrust KB 16kg con pausa',d:'3×15',p:'her'},
+      {n:'Hip Thrust KB 16kg con pausa arriba',d:'3×15',p:'her'},
     ]},
     {titulo:'Bloque B · AMRAP variado',tipo:'amrap',badge:'12 MIN',exs:[
       {n:'Clean KB 24kg',d:'8 reps',p:'him'},
@@ -402,17 +424,17 @@ const WEEKS_DATA = [
     {titulo:'Calentamiento',tipo:'calentamiento',badge:'8 MIN',exs:[
       {n:'Comba continua',d:'3 min',p:'shared'},
       {n:'Hip hinge KB',d:'2×10',p:'shared'},
-      {n:'Sentadilla sumo sin peso',d:'2×12',p:'shared'},
+      {n:'Sentadilla sumo sin peso lenta',d:'2×12',p:'shared'},
     ]},
     {titulo:'Bloque A · Sentadilla sumo + Hip Thrust una pierna + Curl femoral',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Sentadilla sumo KB 32kg',d:'4×10',p:'him'},
       {n:'Hip Thrust una pierna banco KB 20kg',d:'4×8/lado',p:'him'},
       {n:'Peso muerto sumo KB 28kg',d:'3×10',p:'him'},
-      {n:'Curl femoral KB tumbado',d:'3×12',p:'him'},
+      {n:'Curl femoral KB tumbado boca abajo',d:'3×12',p:'him'},
       {n:'Sentadilla sumo KB 20kg',d:'4×12',p:'her'},
       {n:'Hip Thrust una pierna banco',d:'4×10/lado',p:'her'},
       {n:'Peso muerto sumo KB 16kg',d:'3×12',p:'her'},
-      {n:'Abductor goma tumbado',d:'3×15/lado',p:'her'},
+      {n:'Abductor goma tumbado lateral',d:'3×15/lado',p:'her'},
     ]},
     {titulo:'Bloque B · Core tabata',tipo:'amrap',badge:'8 MIN',exs:[
       {n:'Rodillo abdominal · 20s/10s',d:'×8 rondas',p:'him'},
@@ -426,14 +448,14 @@ const WEEKS_DATA = [
       {n:'Face pulls con goma',d:'2×15',p:'shared'},
       {n:'Elevaciones frontales goma',d:'2×12',p:'shared'},
     ]},
-    {titulo:'Bloque A · Press lateral + Curl predicador + Skull crusher',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Skull crusher + Curl predicador banco + Press lateral',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Press lateral goma + mancuerna 10kg',d:'4×12',p:'him'},
       {n:'Face pull con goma',d:'4×15',p:'him'},
       {n:'Curl predicador banco mancuerna 14kg',d:'4×12',p:'him'},
-      {n:'Skull crusher mancuernas banco 12kg',d:'4×12',p:'him'},
+      {n:'Skull crusher banco mancuernas 12kg',d:'4×12',p:'him'},
       {n:'Elevaciones frontales mancuernas 4kg',d:'4×12',p:'her'},
       {n:'Face pull con goma',d:'4×15',p:'her'},
-      {n:'Curl concentrado mancuerna 6kg',d:'4×12',p:'her'},
+      {n:'Curl concentrado banco mancuerna 6kg',d:'4×12',p:'her'},
       {n:'Extensión tríceps mancuerna banco 6kg',d:'4×12',p:'her'},
     ]},
     {titulo:'Bloque B · EMOM potencia',tipo:'emom',badge:'12 MIN',exs:[
@@ -454,6 +476,14 @@ const WEEKS_DATA = [
   ]}],
 },
 
+// ══════════════════════════════════════
+// SEMANA 3 · POTENCIA
+// Empuje: push press + dips banco (EXPLOSIVO — distinto)
+// Tirón: clean KB + remo explosivo una mano (DISTINTO)
+// Squat: salto KB + box jump (DISTINTO)
+// Bisagra: clean + hip thrust explosivo (DISTINTO)
+// Aislamiento: push press KB + overhead throw + curl+extensión (DISTINTO)
+// ══════════════════════════════════════
 {
   nombre:'Semana 3 · Potencia',
   lunes:[
@@ -462,17 +492,17 @@ const WEEKS_DATA = [
       {n:'Push-up explosivo con despegue',d:'2×8',p:'shared'},
       {n:'Band pull-apart goma',d:'2×15',p:'shared'},
     ]},
-    {titulo:'Bloque A · Push press + Remo explosivo + Dips banco',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Push press + Dips banco + Remo explosivo una mano',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Push press mancuernas 22kg',d:'4×5',p:'him'},
-      {n:'Remo explosivo KB 24kg a una mano',d:'4×5/lado',p:'him'},
-      {n:'Pelota medicinal slam desde banco inclinado',d:'3×8',p:'him'},
-      {n:'Dips banco lastrado mancuerna',d:'3×8',p:'him'},
+      {n:'Remo explosivo KB 24kg una mano',d:'4×5/lado',p:'him'},
+      {n:'Dips banco lastrado mancuerna 16kg',d:'3×6',p:'him'},
+      {n:'Pelota medicinal slam desde inclinado',d:'3×8',p:'him'},
       {n:'Push press mancuernas 8kg',d:'4×6',p:'her'},
-      {n:'Remo explosivo KB 12kg a una mano',d:'4×6/lado',p:'her'},
+      {n:'Remo explosivo KB 12kg una mano',d:'4×6/lado',p:'her'},
+      {n:'Dips banco sin peso',d:'3×8',p:'her'},
       {n:'Pelota medicinal slam',d:'3×8',p:'her'},
-      {n:'Dips banco',d:'3×10',p:'her'},
     ]},
-    {titulo:'Bloque B · AMRAP circuito',tipo:'amrap',badge:'15 MIN',exs:[
+    {titulo:'Bloque B · AMRAP circuito potencia',tipo:'amrap',badge:'15 MIN',exs:[
       {n:'Comba 30 seg',d:'ronda',p:'shared'},
       {n:'Pelota medicinal slam',d:'10 reps',p:'shared'},
       {n:'Push-up explosivo',d:'8 reps',p:'him'},
@@ -487,13 +517,13 @@ const WEEKS_DATA = [
       {n:'Sentadilla salto ×10',d:'2 series',p:'shared'},
       {n:'Hip hinge explosivo KB',d:'2×10',p:'shared'},
     ]},
-    {titulo:'Bloque A · Clean + Box jump + Split squat explosivo',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Clean KB + Box jump banco + Split squat explosivo',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Clean KB 24kg',d:'5×4/lado',p:'him'},
-      {n:'Box jump al banco + bajada lenta',d:'4×5',p:'him'},
+      {n:'Box jump al banco + bajada lenta excéntrica',d:'4×5',p:'him'},
       {n:'Bulgarian split squat salto KB 12kg',d:'3×5/lado',p:'him'},
       {n:'Hip thrust explosivo KB 28kg',d:'3×8',p:'him'},
       {n:'Swing KB 12kg a una mano',d:'5×6/lado',p:'her'},
-      {n:'Step-up banco + rodilla arriba',d:'4×8/lado',p:'her'},
+      {n:'Step-up banco + rodilla al pecho',d:'4×8/lado',p:'her'},
       {n:'Bulgarian split squat salto sin peso',d:'3×6/lado',p:'her'},
       {n:'Hip thrust explosivo KB 16kg',d:'3×10',p:'her'},
     ]},
@@ -522,15 +552,15 @@ const WEEKS_DATA = [
       {n:'Comba doble salto',d:'3 min',p:'shared'},
       {n:'Sentadilla salto ×10 + Hip hinge ×10',d:'2 rondas',p:'shared'},
     ]},
-    {titulo:'Bloque A · Sentadilla salto + Peso muerto explosivo + Curl femoral',tipo:'fuerza',badge:'90 SEG DESC',exs:[
+    {titulo:'Bloque A · Sentadilla salto KB + Peso muerto explosivo + Curl femoral',tipo:'fuerza',badge:'90 SEG DESC',exs:[
       {n:'Sentadilla con salto KB 16kg',d:'5×5',p:'him'},
-      {n:'Peso muerto KB 24kg explosivo',d:'4×6',p:'him'},
+      {n:'Peso muerto explosivo KB 24kg',d:'4×6',p:'him'},
       {n:'Sentadilla sumo salto KB 16kg',d:'3×6',p:'him'},
-      {n:'Curl femoral KB tumbado',d:'3×10',p:'him'},
+      {n:'Curl femoral KB tumbado boca abajo',d:'3×10',p:'him'},
       {n:'Sentadilla con salto sin peso',d:'5×8',p:'her'},
-      {n:'Peso muerto KB 16kg',d:'4×8',p:'her'},
+      {n:'Peso muerto KB 16kg controlado',d:'4×8',p:'her'},
       {n:'Sentadilla sumo salto sin peso',d:'3×8',p:'her'},
-      {n:'Abductor goma caminando',d:'3×12/lado',p:'her'},
+      {n:'Abductor goma caminando lateral',d:'3×12/lado',p:'her'},
     ]},
     {titulo:'Bloque B · EMOM potencia + core',tipo:'emom',badge:'12 MIN',exs:[
       {n:'Pelota medicinal slam · 8 reps',d:'min 1',p:'shared'},
@@ -547,12 +577,12 @@ const WEEKS_DATA = [
       {n:'Face pulls con goma',d:'2×15',p:'shared'},
     ]},
     {titulo:'Bloque A · Push press KB + Overhead throw + Curl+extensión',tipo:'fuerza',badge:'90 SEG DESC',exs:[
-      {n:'Push press KB 24kg',d:'4×6',p:'him'},
-      {n:'Remo explosivo mancuernas banco 20kg',d:'4×6',p:'him'},
+      {n:'Push press KB 24kg',d:'4×5',p:'him'},
+      {n:'Remo explosivo mancuernas banco 20kg',d:'4×5',p:'him'},
       {n:'Pelota medicinal overhead throw',d:'3×8',p:'him'},
-      {n:'Curl+extensión simultáneo mancuernas',d:'3×10',p:'him'},
-      {n:'Push press mancuernas 8kg',d:'4×8',p:'her'},
-      {n:'Remo con goma explosivo',d:'4×12',p:'her'},
+      {n:'Curl+extensión simultáneo mancuernas 12kg',d:'3×10',p:'him'},
+      {n:'Push press mancuernas 8kg',d:'4×6',p:'her'},
+      {n:'Remo con goma explosivo',d:'4×10',p:'her'},
       {n:'Pelota medicinal overhead throw',d:'3×8',p:'her'},
       {n:'Curl+extensión simultáneo goma',d:'3×12',p:'her'},
     ]},
@@ -572,15 +602,23 @@ const WEEKS_DATA = [
   ]}],
 },
 
+// ══════════════════════════════════════
+// SEMANA 4 · DESCARGA
+// Empuje: press declinado + apertura banco (DISTINTO a sem 1-2-3)
+// Tirón: remo al mentón + pullover (DISTINTO)
+// Squat: zancada reversa + zancada lateral (DISTINTO — patrones nuevos)
+// Bisagra: hip thrust excéntrico lento + zancada lateral (DISTINTO)
+// Aislamiento: press alterno + curl concentrado + extensión sobre cabeza (DISTINTO)
+// ══════════════════════════════════════
 {
   nombre:'Semana 4 · Descarga',
   lunes:[
     {titulo:'Calentamiento',tipo:'calentamiento',badge:'8 MIN',exs:[
       {n:'Comba continua',d:'3 min',p:'shared'},
       {n:'Band pull-apart',d:'2×15',p:'shared'},
-      {n:'Rotación torácica',d:'2×10/lado',p:'shared'},
+      {n:'Rotación torácica con goma',d:'2×10/lado',p:'shared'},
     ]},
-    {titulo:'Bloque A · Press declinado + Remo al mentón + Apertura',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+    {titulo:'Bloque A · Press declinado + Remo al mentón + Apertura banco',tipo:'fuerza',badge:'2 MIN DESC',exs:[
       {n:'Press banca declinado banco mancuernas 20kg',d:'3×8',p:'him'},
       {n:'Remo al mentón mancuernas 16kg',d:'3×10',p:'him'},
       {n:'Apertura banco plano mancuernas 14kg',d:'3×12',p:'him'},
@@ -590,7 +628,7 @@ const WEEKS_DATA = [
     ]},
     {titulo:'Bloque B · Movilidad activa hombros',tipo:'rec',badge:'15 MIN',exs:[
       {n:'Gato-vaca',d:'2×10',p:'shared'},
-      {n:'Rotación torácica con goma',d:'2×10/lado',p:'shared'},
+      {n:'Rotación torácica tumbado',d:'2×10/lado',p:'shared'},
       {n:'Apertura pecho en banco',d:'2×12',p:'shared'},
       {n:'Estiramiento hombro cruzado',d:'2×30 seg/lado',p:'shared'},
     ]},
@@ -601,13 +639,13 @@ const WEEKS_DATA = [
       {n:'Movilidad cadera (mundo)',d:'2×10',p:'shared'},
       {n:'Sentadilla goblet lenta con pausa',d:'2×12',p:'shared'},
     ]},
-    {titulo:'Bloque A · Zancada reversa + Curl femoral + Goblet suave',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+    {titulo:'Bloque A · Zancada reversa + Zancada lateral + Hip Thrust excéntrico',tipo:'fuerza',badge:'2 MIN DESC',exs:[
       {n:'Zancada reversa mancuernas 18kg',d:'3×10/lado',p:'him'},
-      {n:'Curl femoral KB tumbado',d:'3×12',p:'him'},
-      {n:'Sentadilla goblet KB 20kg',d:'3×10',p:'him'},
+      {n:'Zancada lateral mancuernas 14kg',d:'3×10/lado',p:'him'},
+      {n:'Hip Thrust KB 20kg excéntrico lento 4 seg',d:'3×10',p:'him'},
       {n:'Zancada reversa mancuernas 8kg',d:'3×12/lado',p:'her'},
-      {n:'Abductor goma tumbado suave',d:'3×15/lado',p:'her'},
-      {n:'Sentadilla goblet KB 12kg',d:'3×12',p:'her'},
+      {n:'Zancada lateral sin peso',d:'3×12/lado',p:'her'},
+      {n:'Hip Thrust KB 14kg excéntrico lento 4 seg',d:'3×12',p:'her'},
     ]},
     {titulo:'Bloque B · Movilidad inferior',tipo:'rec',badge:'15 MIN',exs:[
       {n:'Estiramiento isquios tumbado',d:'2×45 seg/lado',p:'shared'},
@@ -636,13 +674,13 @@ const WEEKS_DATA = [
       {n:'Sentadilla con pausa',d:'2×10',p:'shared'},
       {n:'Hip hinge KB suave',d:'2×10',p:'shared'},
     ]},
-    {titulo:'Bloque A · Hip Thrust lento + Zancada lateral + Swing técnico',tipo:'fuerza',badge:'2 MIN DESC',exs:[
-      {n:'Hip Thrust KB 20kg lento excéntrico',d:'3×10',p:'him'},
-      {n:'Zancada lateral mancuernas 14kg',d:'3×10/lado',p:'him'},
-      {n:'Swing KB 20kg técnico',d:'3×10',p:'him'},
-      {n:'Hip Thrust KB 14kg lento excéntrico',d:'3×12',p:'her'},
-      {n:'Zancada lateral sin peso',d:'3×12/lado',p:'her'},
-      {n:'Swing KB 12kg técnico',d:'3×12',p:'her'},
+    {titulo:'Bloque A · Sentadilla lateral + Swing técnico + Plancha dinámica',tipo:'fuerza',badge:'2 MIN DESC',exs:[
+      {n:'Sentadilla lateral mancuerna 14kg',d:'3×10/lado',p:'him'},
+      {n:'Swing KB 20kg técnico lento',d:'3×10',p:'him'},
+      {n:'Plancha con desplazamiento lateral',d:'3×8/lado',p:'him'},
+      {n:'Sentadilla lateral sin peso',d:'3×12/lado',p:'her'},
+      {n:'Swing KB 12kg técnico lento',d:'3×12',p:'her'},
+      {n:'Plancha con desplazamiento lateral',d:'3×8/lado',p:'her'},
     ]},
     {titulo:'Bloque B · Core suave',tipo:'rec',badge:'10 MIN',exs:[
       {n:'Rodillo abdominal excéntrico lento',d:'2×8',p:'him'},
@@ -665,7 +703,7 @@ const WEEKS_DATA = [
       {n:'Press hombros alterno mancuernas 6kg',d:'3×12',p:'her'},
       {n:'Elevaciones laterales mancuernas 3kg',d:'3×15',p:'her'},
       {n:'Curl concentrado banco mancuerna 5kg',d:'3×12',p:'her'},
-      {n:'Extensión tríceps goma',d:'3×15',p:'her'},
+      {n:'Extensión tríceps goma sobre cabeza',d:'3×15',p:'her'},
     ]},
     {titulo:'Bloque B · Movilidad + Stretching',tipo:'rec',badge:'20 MIN',exs:[
       {n:'Foam roller espalda y hombros',d:'5 min',p:'shared'},
@@ -858,8 +896,8 @@ function renderBlock(b, exs) {
       <div class="bdot ${getDotCls(b.tipo)}"></div>
       <div class="btitle">${b.titulo}</div>
       <span class="bbadge ${getBadgeCls(b.tipo)}">${b.badge}</span>
-      <button class="etog" onclick="toggleEdit(event,this,'${b.id}')">✏️</button>
-      <button class="etog" style="color:var(--red);border-color:var(--red)" onclick="delBlock(event,'${b.id}')">✕</button>
+      <button class="etog" onclick="toggleEdit(event,this,'${b.id}')">✏️ Editar</button>
+      <button class="del-block-btn" onclick="delBlock(event,'${b.id}')" title="Eliminar bloque">🗑️</button>
       <span class="cv">▾</span>
     </div>
     <div class="bbody">${body}</div>
